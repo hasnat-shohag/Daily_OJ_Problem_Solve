@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+ 
 #define FastIO ios_base::sync_with_stdio(0), cin.tie(0)
 #define TxtIO  freopen("input.txt", "r", stdin); freopen("output.txt", "w", stdout);
 #define f0(i, n) for (int i = 0; i < n; i++)
@@ -19,10 +19,10 @@ using namespace std;
 #define mod 1000000007
 int Ceil(int a, int b){return (a + b - 1) / b;}
 //_________________template______________
-
+ 
 template <typename T> // printByVectorName
 ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
+ 
 void sol()
 {
     int n;cin>>n;
@@ -32,22 +32,30 @@ void sol()
         cin>>v[i];
         sum += v[i];
     }
+    if(n==1){
+        cout<<v[0]<<endl;
+        return;
+    }
+    // sort(all(v));
     int res = 1e9;
+    // cout<<sum<<endl;
     for(int i = 1; i< ((1<<n)-1); i++){
         int ts = 0;
         int ls = 1;
         for(int j = 0; j<n; j++){
             if(ls & i){
+                // cout << v[j]<<" ";
                 ts += v[j];
             }
             ls <<= 1;
         }
         int ta = sum - ts;
+        // cout << ts<<endl;
         res = min(res, abs(ta-ts));
     }
     cout << res << endl;
 }
-
+ 
 int32_t main()
 {
     FastIO;
