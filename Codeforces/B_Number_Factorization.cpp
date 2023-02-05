@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define FastIO ios_base::sync_with_stdio(0), cin.tie(0)
+#define TxtIO                         \
+    freopen("input.txt", "r", stdin); \
+    freopen("output.txt", "w", stdout);
+#define f0(i, n) for (int i = 0; i < n; i++)
+#define f1(i, n) for (int i = 1; i <= n; i++)
+#define f2(i, n) for (int i = 1; i < n; i++)
+#define endl "\n"
+#define pb push_back
+// #define mp make_pair
+#define vi vector<int>
+#define pi pair<int, int>
+#define all(x) x.begin(), x.end()
+#define ff first
+#define ss second
+#define int long long
+#define INF 1000000000
+#define mod 1000000007
+int Ceil(int a, int b)
+{
+    return (a + b - 1) / b;
+}
+//_________________template______________
+
+template <typename T> // printByVectorName
+ostream &operator<<(ostream &os, const vector<T> &v)
+{
+    for (auto e : v)
+    {
+        os << e << " ";
+    }
+    return os;
+}
+
+void sol()
+{
+    int n;
+    cin >> n;
+    map<int, int> mp;
+
+    for (int i = 2; i * i <= n; i++)
+    {
+        while (n % i == 0)
+        {
+            mp[i]++;
+            n /= i;
+        }
+    }
+    if(n > 0){
+        mp[n]++;
+    }
+    int res = 0;
+
+    int mx = 0;
+    for (auto it : mp) mx = max(mx, it.ss);
+    
+    while(mx--){
+        int temp = 1;
+        for (auto it : mp)
+        {
+            if(mp[it.ff] > 0){
+                temp *= it.ff;
+            }
+            mp[it.ff] -= 1;
+        }
+        res += temp;
+    }
+    cout << res << endl;
+}
+
+int32_t main()
+{
+    FastIO;
+    // TxtIO;
+    int tt;
+    tt = 1;
+    cin >> tt;
+    while (tt--)
+    {
+        sol();
+    }
+}
