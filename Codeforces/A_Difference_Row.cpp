@@ -26,22 +26,20 @@ ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e <
 void sol()
 {
     int n;cin>>n;
-    if(n % 2 == 0){
-        cout <<"No"<<endl;
-        return;
-    }
-    int a = Ceil(n, 2);
-    ++a;
-    
+    vi v(n);
+    f0(i,n)cin>>v[i];
+    sort(all(v));
+    swap(v[0], v[n-1]);
+    cout << v << endl;
 }
-
+//Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();
