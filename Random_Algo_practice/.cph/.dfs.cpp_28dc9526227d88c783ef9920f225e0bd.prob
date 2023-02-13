@@ -1,0 +1,1 @@
+{"name":"Local: dfs","url":"/home/hasnat/OJ_Problem/Random_Algo_practice/dfs.cpp","tests":[{"id":1676308911073,"input":"5 4\n0 2\n2 4\n0 4\n1 3\n0 2","output":"Yes"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hasnat/OJ_Problem/Random_Algo_practice/dfs.cpp","group":"local","local":true}
