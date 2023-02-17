@@ -1,0 +1,1 @@
+{"name":"Local: con_cmnt","url":"/home/hasnat/OJ_Problem/Random_Algo_practice/DFS/con_cmnt.cpp","tests":[{"id":1676626665236,"input":"1\n8 7\n0 5\n5 6\n0 6\n7 7\n4 4\n1 2\n2 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hasnat/OJ_Problem/Random_Algo_practice/DFS/con_cmnt.cpp","group":"local","local":true}

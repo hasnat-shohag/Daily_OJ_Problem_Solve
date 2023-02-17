@@ -22,34 +22,50 @@ int Ceil(int a, int b){return (a + b - 1) / b;}
 
 template <typename T> // printByVectorName
 ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-vector<pair<int,int>>v;
-
-void tower_of_hanoi(int n, char from_rod, char to_rod, char aux_rod){
-    if(n == 0){
-        return;
+vector<vector<int>>adj;
+vector<int>dis;
+vector<bool>vis;
+void dfs(int node){
+    vis[node] = 1;
+    for(auto child: adj[node]){
+        if(vis[child] != 1){
+            dis[child] = dis[node] + 1;
+            dfs(child);
+        }
     }
-    tower_of_hanoi(n-1, from_rod, aux_rod, to_rod);
-    v.pb({from_rod, to_rod});
-    tower_of_hanoi(n-1, aux_rod, to_rod, from_rod);
 }
-
 void sol()
 {
-    int n;cin>>n;
-    tower_of_hanoi(n, 1 , 3, 2);
-    cout << v.size()<<endl;
-    for(auto it:v){
-        cout << it.ff<<" "<<it.ss<<endl;
+    int node,edge;cin>>node>>edge;
+    adj.clear();
+    vis.clear();
+    dis.clear();
+    adj.resize(node+1);
+    vis.resize(node+1);
+    dis.resize(node+1);
+
+    for(int i = 0; i<edge; i++){
+        int u,v;cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    int src_node;
+    cin>>src_node;
+
+    dis[src_node] = 0;
+    dfs(src_node);
+    for(int i = 1; i<=node; i++){
+        cout <<"dist of " << i<< " from "<< src_node << " is "<< dis[i]<<endl;
     }
 }
-
+//Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

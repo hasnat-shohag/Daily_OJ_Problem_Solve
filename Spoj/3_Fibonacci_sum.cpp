@@ -22,34 +22,39 @@ int Ceil(int a, int b){return (a + b - 1) / b;}
 
 template <typename T> // printByVectorName
 ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-vector<pair<int,int>>v;
-
-void tower_of_hanoi(int n, char from_rod, char to_rod, char aux_rod){
-    if(n == 0){
-        return;
-    }
-    tower_of_hanoi(n-1, from_rod, aux_rod, to_rod);
-    v.pb({from_rod, to_rod});
-    tower_of_hanoi(n-1, aux_rod, to_rod, from_rod);
-}
-
+vector<int>v;
 void sol()
 {
-    int n;cin>>n;
-    tower_of_hanoi(n, 1 , 3, 2);
-    cout << v.size()<<endl;
-    for(auto it:v){
-        cout << it.ff<<" "<<it.ss<<endl;
-    }
+    int n;cin>>n;   
+    if(n < 6) cout<<"impossible"<<endl;
+    else{
+        int l = 0; int r = 100;
+        int mid;
+        while(l < r) {
+            // mid = r + (r-l)/2;
+            mid = (l+r)/2;
+            if(v[mid] < n)
+                l = mid+1;
+            else 
+                r = mid;
+        }
+        int idx = r;
+        cout << v[idx-4]<<" "<<v[idx-3]<<" "<<v[idx-1]<<endl;
+    } 
 }
-
+//Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;
+    v.pb(0);v.pb(1);
+    for(int i = 2; i<100; i++){
+        v.pb(v[i-1]+v[i-2]);
+    }
+    // cout<<v<<endl;
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

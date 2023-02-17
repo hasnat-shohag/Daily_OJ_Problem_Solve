@@ -22,27 +22,16 @@ int Ceil(int a, int b){return (a + b - 1) / b;}
 
 template <typename T> // printByVectorName
 ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-vector<pair<int,int>>v;
-
-void tower_of_hanoi(int n, char from_rod, char to_rod, char aux_rod){
-    if(n == 0){
-        return;
-    }
-    tower_of_hanoi(n-1, from_rod, aux_rod, to_rod);
-    v.pb({from_rod, to_rod});
-    tower_of_hanoi(n-1, aux_rod, to_rod, from_rod);
-}
 
 void sol()
 {
-    int n;cin>>n;
-    tower_of_hanoi(n, 1 , 3, 2);
-    cout << v.size()<<endl;
-    for(auto it:v){
-        cout << it.ff<<" "<<it.ss<<endl;
+    int n,m;cin>>n>>m;
+    if(n<m)cout<<n<<endl;
+    else {
+        cout << m - 1<<endl;
     }
 }
-
+//Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;

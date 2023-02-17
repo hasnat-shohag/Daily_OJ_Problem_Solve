@@ -1,50 +1,51 @@
+
 #include <bits/stdc++.h>
+
+#define MAXN 101
+
 using namespace std;
 
-#define FastIO ios_base::sync_with_stdio(0), cin.tie(0)
-#define TxtIO  freopen("input.txt", "r", stdin); freopen("output.txt", "w", stdout);
-#define f0(i, n) for (int i = 0; i < n; i++)
-#define f1(i, n) for (int i = 1; i <= n; i++)
-#define f2(i, n) for (int i = 1; i < n; i++)
-#define endl "\n"
-#define pb push_back
-#define mp make_pair
-#define vi vector<int>
-#define pi pair<int, int>
-#define all(x) x.begin(), x.end()
-#define ff first
-#define ss second
-#define int long long
-#define INF 1000000000
-#define mod 1000000007
-int Ceil(int a, int b){return (a + b - 1) / b;}
-//_________________template______________
+int M, Q, dp[MAXN], speed[MAXN], pre[MAXN];
+string names[MAXN];
 
-template <typename T> // printByVectorName
-ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
-void sol()
-{
-    int n,q;cin>>n>>q;
-    int sum = 0;
-    vector<vector<string>>res;
-    vector<pair<string, int>>v;
-    for(int i = 0; i<q; i++){
-        string s;int p;cin>>s>>p;
-        v.pb({s, p});
-    }    
-    
-}
-//Before Submit handle the case for 0 and 1
-int32_t main()
-{
-    FastIO;
-    //TxtIO;
-    int tt;
-    tt = 1;
-    // cin >> tt;
-    while (tt--)
-    {
-        sol();
+int main(){
+    cin >> M >> Q;
+    for (int i = 0; i < Q; i++){
+        cin >> names[i] >> speed[i];
     }
+
+    //Let dp[i] be the earliest possible time when person i is about to cross
+    for(int i = 0; i<MAXN; i++){
+        dp[i] = 1e4;
+    }
+    dp[0] = 0;
+    for (int i = 0; i < Q; i++){
+        int mspeed = 0;
+        for (int j = 0; j < M && i + j <= Q; j++){
+            mspeed = max(mspeed, speed[i + j]);
+            int alt = dp[i] + mspeed;
+            if (alt < dp[i + j + 1]){
+                dp[i + j + 1] = alt;
+                pre[i + j + 1] = i;
+            }
+        }
+    }
+
+    printf("Total Time: %d\n", dp[Q]);
+    vector<int> idx;
+    int cur = Q;
+    while(true){
+        idx.push_back(cur);
+        if (cur == 0) break;
+        cur = pre[cur];
+    }
+    reverse(idx.begin(), idx.end());
+
+    for (int i = 0; i < (int)idx.size() - 1; i++){
+        for (int j = idx[i]; j < idx[i + 1]; j++){
+            cout << names[j] << " ";
+        }
+        cout << endl;
+    }
+
 }
