@@ -34,49 +34,36 @@ ostream &operator<<(ostream &os, const vector<T> &v)
     }
     return os;
 }
-vector<vector<int>> adj;
-vector<int> vis;
-
-void dfs(int node)
+bool cmp(pair<int, int> A, pair<int, int> B)
 {
-    vis[node] = 1;
-    for (auto child : adj[node])
-    {
-        if (vis[child] == 0)
-        {
-            vis[child] = 1;
-            dfs(child);
-        }
-    }
+    return A.ss < B.ss;
 }
 void sol()
 {
-    int n, m;
-    cin >> n >> m;
-    adj.clear();
-    adj.resize(n+1);
-    vis.clear();
-    vis.resize(n);
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    vector<pair<int, int>> vec;
+    f0(i, n)
     {
-        int k;
-        cin >> k;
-        for (int j = 0; j < k; j++)
-        {
-            int p;
-            cin >> p;
-            adj[i+1].pb(p);
-            adj[p].pb(i+1);
-        }        
+        int u, v;
+        cin >> u >> v;
+        vec.pb({u, v});
     }
-    int cnt = 0;
-    for(int it = 1; it<= n; it++){
-        if(vis[it] == 0){
-            dfs(it);
-            cnt++;
-        }
+    sort(all(vec), cmp);
+    // for (auto it : vec)
+    // {
+    //     cout << it.ff << " " << it.ss << endl;
+    // }cout<<"......"<<endl;
+    int res = 1;
+    int tracker = vec[0].ss;
+    for(int i = 0; i+1<n; i++){
+        if(tracker <= vec[i+1].ff){
+            // cout << vec[i].ss<<" "<<vec[i+1].ff<<endl;
+            res++;
+            tracker = vec[i+1].ss;
+        } 
     }
-    cout << cnt -1 << endl;
+    cout << res << endl;
 }
 // Before Submit handle the case for 0 and 1
 int32_t main()
