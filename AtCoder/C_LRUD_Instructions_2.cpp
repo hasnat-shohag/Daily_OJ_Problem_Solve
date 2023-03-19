@@ -26,19 +26,27 @@ ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e <
 void sol()
 {
     int n;cin>>n;
-    vi v(n);
-    int sum = 0;
-    f0(i,n)cin>>v[i];
-    sort(all(v));
+    string s;cin>>s;
+
+    set<pair<int,int>>st;
+    int x = 0, y = 0;
+    st.insert({x,y});
 
     for(int i = 0; i<n; i++){
-        if(sum +1 < v[i]){
-            cout << sum +1 << endl;
-            return;
-        }
-        sum += v[i];
+        if(s[i] == 'R'){
+            x++;
+        }else if(s[i] == 'L'){
+            x--;
+        }else if(s[i] == 'U') y++;
+        else y--;
+
+        st.insert({x,y});
     }
-    cout << sum + 1 << endl;
+    // for(auto it:st){
+    //     cout << it.ff<<" "<<it.ss<<endl;
+    // }
+    if(st.size() == n+1) cout <<"No"<<endl;
+    else cout <<"Yes"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -47,7 +55,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-     // cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();

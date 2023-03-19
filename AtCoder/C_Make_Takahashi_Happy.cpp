@@ -25,35 +25,42 @@ ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e <
 
 void sol()
 {
-    string s;cin>>s;
-    sort(all(s));
-    string a = s;
-    reverse(all(s));
-    string b = s;
-    int l = s.size();
-    string ans = "";
-    int ctl = 0;
-    for(int i = 0; i<l; i+=2){
-        if(ctl == 0){
-            ans += a[i];
-            ctl = 1;
-        }else{
-            ans += b[i];
-            ctl = 0;
+    int r,c;cin>>r>>c;
+    int arr[r+1][c+1];
+    for(int i = 1; i<=r; i++){
+        for(int j = 1; j<=c; j++){
+            cin>>arr[i][j];
         }
+    }    
+    vector<int>v;
+    for(int i = 0; i<r-1; i++){
+        v.push_back(0);
+    }
+    for(int i = 0; i<c-1; i++){
+        v.push_back(1);
     }
 
-    ctl = 0;
-    for(int i = 0; i<l; i+=2){
-        if(ctl == 1){
-            ans += a[i];
-            ctl = 0;
-        }else{
-            ans += b[i];
-            ctl = 1;
+    int cnt = 0;
+
+    do{
+        set<int>st;
+        st.insert(arr[1][1]);
+        int x = 1; int y = 1;        
+        for(int i = 0; i<v.size(); i++){
+            if(v[i] == 0){
+                ++x;
+                st.insert(arr[x][y]);
+            }else{
+                ++y;
+                st.insert(arr[x][y]);
+            }
         }
-    }
-    cout << ans <<endl;
+        if(st.size() == (r+c-1)){
+            cnt++;
+        }
+        st.clear();
+    }while(next_permutation(all(v)));
+    cout << cnt << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -62,7 +69,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();

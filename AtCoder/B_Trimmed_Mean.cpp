@@ -26,19 +26,25 @@ ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e <
 void sol()
 {
     int n;cin>>n;
-    vi v(n);
+    vi v(5*n);
     int sum = 0;
-    f0(i,n)cin>>v[i];
-    sort(all(v));
-
-    for(int i = 0; i<n; i++){
-        if(sum +1 < v[i]){
-            cout << sum +1 << endl;
-            return;
-        }
+    f0(i,5*n){
+        cin>>v[i];
         sum += v[i];
+    }    
+    sort(all(v));
+    int cut = 0;
+    for(int i = 0; i<n; i++){
+        cut += v[i];
     }
-    cout << sum + 1 << endl;
+    int idx = 0;
+    for(int i = 5*n - 1; idx < n; i--){
+        cut += v[i];
+        idx++;
+    }
+    float res = float(sum - cut)/(3*n);
+    printf("%.5lf\n", res);
+
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -47,7 +53,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-     // cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();
