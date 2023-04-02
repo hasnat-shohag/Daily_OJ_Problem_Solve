@@ -26,35 +26,20 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    // int a = n*n;
-    // if(a < m){
-    //     cout << -1 << endl;
-    //     return;
-    // }    
-    if(n<sqrtl(m)){
-        cout<<-1; return;
+    int n;cin>>n;
+    vi v(n);
+    int x = 0;
+    f0(i,n){
+        cin>>v[i];
+        x ^= v[i];
     }
 
-    int res = LLONG_MAX;
-    int ans;
-    for(int i = 1; i*i<= n; i++){
-        int p = Ceil(n,i);
-        
-        int a,b;
-        a = Ceil(m, i);
-        b = Ceil(m,p);
-
-        if(a <= n){
-            ans = a * i;
-            res = min(res, ans);
-        }
-        if(b <= n){
-            ans = b * p;
-            res = min(res, ans);
-        }
+    int res = 0;
+    f0(i,n){
+        res ^= (x^v[i]); 
     }
-    cout << res << endl;
+    if(res != 0) cout <<-1 << endl;
+    else cout << x << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -63,7 +48,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

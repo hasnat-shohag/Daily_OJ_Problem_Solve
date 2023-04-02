@@ -26,35 +26,42 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    // int a = n*n;
-    // if(a < m){
-    //     cout << -1 << endl;
-    //     return;
-    // }    
-    if(n<sqrtl(m)){
-        cout<<-1; return;
-    }
+    int n;cin>>n;
+    string s;cin>>s;
 
-    int res = LLONG_MAX;
-    int ans;
-    for(int i = 1; i*i<= n; i++){
-        int p = Ceil(n,i);
-        
-        int a,b;
-        a = Ceil(m, i);
-        b = Ceil(m,p);
+    vector<char>str;
+    int idx = 0;
+    bool flag = false;
+    char ch = 'z';
+    ch++; // max
 
-        if(a <= n){
-            ans = a * i;
-            res = min(res, ans);
+    for(int i = n-1;i >=1; i--){
+        if(s[0] >= s[i] && ch > s[i]){
+            ch = min(ch, s[i]);
+            flag = true;
+            idx = i;
         }
-        if(b <= n){
-            ans = b * p;
-            res = min(res, ans);
+    }    
+
+    if(flag){
+        str.pb(s[idx]);
+        // cout << idx <<endl;
+        for(int i = 0; i<idx; i++){
+            str.pb(s[i]);
+        }
+        for(int i = idx+1; i<n; i++){
+            str.pb(s[i]);
         }
     }
-    cout << res << endl;
+    else{
+        for(int i = 0; i<n; i++){
+            str.pb(s[i]);
+        }
+    }
+    for(int i = 0; i<n; i++){
+        cout << str[i];
+    }cout<<endl;
+
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -63,7 +70,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
