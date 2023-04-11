@@ -8,7 +8,7 @@ using namespace std;
 #define f2(i, n) for (int i = 1; i < n; i++)
 #define endl "\n"
 #define pb push_back
-#define mp make_pair
+//#define mp make_pair
 #define vi vector<int>
 #define pi pair<int, int>
 #define all(x) x.begin(), x.end()
@@ -25,36 +25,12 @@ template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for 
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
 void sol()
-{
-    int n,m;cin>>n>>m;
-    // int a = n*n;
-    // if(a < m){
-    //     cout << -1 << endl;
-    //     return;
-    // }    
-    if(n<sqrtl(m)){
-        cout<<-1; return;
+{   
+    int n;cin>>n; int res  =0 ;
+    while(n--){
+    int a,b;cin>>a>>b;
+    res = a+b;cout <<res <<endl;
     }
-
-    int res = LLONG_MAX;
-    int ans;
-    for(int i = 1; i*i<= n; i++){
-        int p = Ceil(n,i);
-        
-        int a,b;
-        a = Ceil(m, i);
-        b = Ceil(m,p);
-
-        if(a <= n){
-            ans = a * i;
-            res = min(res, ans);
-        }
-        if(b <= n){
-            ans = b * p;
-            res = min(res, ans);
-        }
-    }
-    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

@@ -26,56 +26,47 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int l,r;cin>>l>>r;
-
-    int gap = r - l;
-    
-    if(gap >= 100){
-        for(int i = l; i<=l+100; i++){
-            int temp = i;
-            vector<int>tmp;
-            while(temp>0){
-                int a = temp % 10;
-                temp /= 10;
-                if(a == 0){
-                    tmp.pb(1);
-                }
-            }
-            if(tmp.size()>1){
-                cout << i << endl;
-                return;
-            }
-        }
-    }    
-    else{
-        int ans = LLONG_MAX;
-        int out;
-        if(l<10 || r < 10){
-            
-        }
-        for(int i = l; i<=r; i++){
-            int temp = i;
-            vector<int>tmp;
-
-            while(temp>0){
-                int a = temp % 10;
-                temp /= 10;
-                tmp.pb(a);
-            }
-            // cout << tmp << endl;
-            if(tmp.size()==1){
-                tmp.pb(tmp[0]);
-            }
-            sort(all(tmp));
-            int res = tmp[1] - tmp[0];
-            if(res<ans){
-                out = i;
-                ans = res;
-            }
-            tmp.clear();
-        }
-        cout << out << endl;
+    int n,m;cin>>n>>m;
+    vector<int>straightLine(n);
+    for(int i = 0; i<n; i++){
+        cin>>straightLine[i];
     }
+    sort(all(straightLine));
+
+    while(m--){
+        int a,b,c;cin>>a>>b>>c;
+        auto it= lower_bound(all(straightLine), b);
+        if(it == straightLine.end()){
+            --it;
+        }
+        // cout <<*it<<endl;
+        int bbb = b;
+        b = (b-*it)*(b-*it);
+        int det = b - 4*a*c;
+        auto p = it;
+        int det2 = 1;
+        int bb;
+        if(*p != *straightLine.begin()){
+            --p;
+            // cout << *p<<" "<<b << endl;
+            bb = (bbb-*p)*(bbb-*p);
+            det2 = bb - 4*a*c;
+        }
+        // cout << *it<<" "<<*p<<endl;
+        // cout << det <<" "<<det2<<endl;
+        if(det2<0){
+            cout <<"YES"<<endl;
+            cout << *p<<endl;
+        }else if(det < 0){
+            cout<<"YES"<<endl;
+            cout << *it << endl;
+        }
+        else{
+            cout <<"NO"<<endl;
+        }
+    }
+        cout << endl;
+
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
