@@ -90,7 +90,6 @@ void sol()
         if(chk(mid)){
             h = mid - 1;
             ans = mid;
-            cout<< ans<<endl;
         }else{
             l = mid+1;
         }
