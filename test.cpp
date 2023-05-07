@@ -1,56 +1,55 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long 
+#define FastIO ios_base::sync_with_stdio(false); cin.tie(0)
+#define ll long long
+#define all(x) (x).begin(),(x).end()
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
+#define ff first
+#define ss second
+template<class T> void print(T& a) { for(auto x:a)cout<<x<<" "; cout<<"\n";}
 
-void solve(){
-    ll n,x; cin>>n>>x;
-    vector<ll> v(n);
-    for(ll i=0;i<n;i++) cin>>v[i];
-    ll ct=0,ct2=0;
-    bool flag=true,boom=false;
-    ll index=-1;
-    for(ll i=0;i<30;i++){
-        ct=0;
-        ct2=0;
-        for(ll j=0;j<n;j++){
-            if(v[j] & (1 << i)){
-                ct++;
-            }else{
-                ct2++;
-            }
+//let a =  [from x in lines[i].split("")select int(x)];
+void machine(int tc)
+{
+    ll n;
+    cin>>n;
+    vector<ll>a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        
+    }
+    sort(all(a));
+    ll pre = -1;
+    ll truth = 0;
+    ll preval = 0;
+    for (ll i=0;i<n;i++){
+        if(a[i]==pre){
+            truth++;
+            preval = a[i];
         }
-        if((ct!=0 && ct2!=0) ){
-            if(flag){
-                if(x & (1<<i)){
-                    index=i;
-                    // x = x & ~(1 << i);
-                    flag=false;
-                }
-            }
+        else if(n- truth<a[i]&&n-truth>=preval){
+            cout<<n - truth<<endl;
+            return;
         }
-        if(ct!=0 && ct2!=0 ){
-            if(x & (1<<i)){
-                continue;
-            }else{
-                boom=true;
-                cout<<x<<'\n';
-                return;
-            }
+        else{
+            pre = a[i];
+            truth++;
+            preval = a[i];
         }
     }
-    x = x & ~(1 << index);    
-    for(ll i=0;i<index;i++){
-        x = x | (1 << i);
-    }
-    cout<<x<<'\n';
-} 
-
-int main(){
-    ios_base::sync_with_stdio(false); cin.tie(NULL);
-    ll t=1;
-    cin >> t;
-    while(t--){
-        solve();
-    }
-    return 0;
+ if(a[n-1]==0)cout<<0<<endl;
+   else
+   cout<<-1<<endl;
 }
+
+int main()
+{
+    FastIO;
+    int t=1;
+    cin>>t;
+    for(int i=1; i<=t; i++)
+    {
+       machine(i);
+    }
+}  
