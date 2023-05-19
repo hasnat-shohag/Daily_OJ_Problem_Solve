@@ -28,48 +28,41 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,k;cin>>n>>k;
-    int sum = 0;
-    vi v(n);
-    f0(i,n){
-        cin>>v[i];
-        sum += v[i];
+    int n;cin>>n;
+    vi v(n); cin>>v;
+    if(count(all(v), v[0]) == n){
+        cout << 1 << endl;
+        return;
     }
-    sort(all(v));
-    int cnt = 0;
-    int fk = 0;
-    int bk = n-1;
-    int element = n;
-    for(int i = 0; i<k; i++){
-        int temp = v[fk]+v[fk+1];
 
-        if(element >= 6 && i + 1 < k){
-            temp += v[fk+2]+v[fk+3];
-            if(temp > v[bk]+v[bk-1]){
-                cnt += v[bk]+v[bk-1];
-                bk -= 2;
-                element -= 2;
-                i++;
-            }else{
-                cnt += v[fk]+v[fk+1];
-                element -= 2;
-                fk += 2;
+    int range1 = 1;
+    int res=0;
+    int range2 = 1;
+    bool flag = true;
+    for(int i = 0; i+1<n; i++){
+        if(v[i]>v[i+1]){
+            range1++;
+            res += (range2>1 ? range2 - 2:0);
+            range2 = 1;
+        }else if(v[i]<v[i+1]){
+            range2++;
+            res  += (range1>1 ? range1 - 2:0);
+            range1 = 1;
+        }else{
+            if(range1 == 1 & range2 == 1){
+                range1++; range2++;
             }
-        }
-        else{
-            if(temp < v[bk]){
-                cnt += temp;
-                fk += 2;
-                element -= 2;
+            else if(range2>1){
+                range2++;
             }else{
-                cnt += v[bk];
-                bk--;
-                element--;
+                range1++;
             }
         }
     }
-    // cout << cnt << endl;
-    cout << sum - cnt << endl;
+    if(range1>2 || range2 > 2){
+        res += max(range1, range2)-2;
+    }
+    cout << n - res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
