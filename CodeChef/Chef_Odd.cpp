@@ -28,25 +28,26 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    vi v(n*m);
-    cin>>v;
-    sort(all(v));
-    int len = n*m;
-    int h1,h2; h1 = v[len-1], h2 = v[len-2];
-    int l1,l2; l1 = v[0], l2 = v[1];
-    
-    int c1 = h1 - l1;
-    int c2 = h1 - l2;
-    int cal1 = len-1-(n-1);
-    int cal2 = n-1;
-    int f = c1-c2;
-    // cout << cal1 <<" "<<cal2<<endl;
-    int res = c1*cal1 + c2 * cal2 + f;
-    // if(l1 != l2) res += h2; 
-    // res += h2;
-    cout << res << endl;
+    int n,k;cin>>n>>k;
+    int odd = Ceil(n, 2);
 
+    if(k*2 > n){
+        cout <<"NO"<<endl;
+        return;
+    }
+    int sum = (n*(n+1))/2;
+    if(k==1){
+        if(sum & 1){
+            cout <<"YES"<<endl;
+        }else cout <<"NO"<<endl;
+        return;
+    }
+    int gap = odd - k;
+    if(gap % 2 == 0){
+        cout <<"YES"<<endl;
+    }else{
+        cout <<"NO"<<endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

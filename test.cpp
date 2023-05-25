@@ -1,55 +1,43 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
-#define FastIO ios_base::sync_with_stdio(false); cin.tie(0)
-#define ll long long
-#define all(x) (x).begin(),(x).end()
-#define no cout<<"NO"<<endl
-#define yes cout<<"YES"<<endl
-#define ff first
-#define ss second
-template<class T> void print(T& a) { for(auto x:a)cout<<x<<" "; cout<<"\n";}
 
-//let a =  [from x in lines[i].split("")select int(x)];
-void machine(int tc)
-{
-    ll n;
-    cin>>n;
-    vector<ll>a(n);
-    for(ll i=0;i<n;i++){
+void Do_Solve(){
+    int n,mx=0,indx=1; cin>>n;
+    int a[n];
+
+    for(int i=0; i<n; i++){
         cin>>a[i];
-        
+        if(a[i]>mx && i>0){
+           mx=a[i]; indx=i;
+        }
     }
-    sort(all(a));
-    ll pre = -1;
-    ll truth = 0;
-    ll preval = 0;
-    for (ll i=0;i<n;i++){
-        if(a[i]==pre){
-            truth++;
-            preval = a[i];
-        }
-        else if(n- truth<a[i]&&n-truth>=preval){
-            cout<<n - truth<<endl;
-            return;
-        }
+    if(n==1){
+        cout<<a[0]<<"\n"; return;
+    }
+    for(int i=indx; i<n; i++)cout<<a[i]<<" ";
+    if(indx!=n-1){
+        cout<<a[indx-1]<<" "; indx-=2;
+    }
+    else indx--;
+    for(int i=indx; i>0; i--){
+        if(a[i]>=a[0])cout<<a[i]<<" ";
         else{
-            pre = a[i];
-            truth++;
-            preval = a[i];
+             break;
         }
+        indx=i-1;
     }
- if(a[n-1]==0)cout<<0<<endl;
-   else
-   cout<<-1<<endl;
+    for(int i=0; i<=indx; i++)cout<<a[i]<<" ";
+    cout<<"\n";
+
 }
 
-int main()
-{
-    FastIO;
-    int t=1;
-    cin>>t;
-    for(int i=1; i<=t; i++)
-    {
-       machine(i);
+int32_t main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int go=1; cin>>go;
+    while (go--){
+        Do_Solve();
     }
-}  
+    return 0;
+}
