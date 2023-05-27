@@ -29,18 +29,33 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 void sol()
 {
     int n;cin>>n;
-    vi v(n);
-    cin>>v;
-    int cnt = 0;
-    sort(all(v));
-    if((count(all(v), v[0]) == n && v[0] != 0) || (v[0] == 0 && count(all(v), v[0]) != n)){
-        cout << -1<<endl;
-        return;
+    vi v(n); cin>>v;
+
+    int mx = n; int mn = 1;
+    int i,j;
+    for(i = 0, j = n-1; i<j;){
+        if(v[i] == mn || v[i] == mx){
+            if(v[i] == mn){
+                mn++;
+                i++;
+            }else{
+                mx--;
+                i++;
+            }
+        }else if(v[j] == mn || v[j] == mx){
+            if(v[j] == mn){
+                mn++;
+                j--;
+            }else{
+                mx--;
+                j--;
+            }
+        }else{
+            break;
+        }
     }
-    for(int i = 0; i<n; i++){
-        if(v[i] <= (n-i-1)) cnt++;
-    }
-    cout << n - cnt << endl;
+    if(i == j) cout << -1 << endl;
+    else cout << i+1 << " "<<j+1<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

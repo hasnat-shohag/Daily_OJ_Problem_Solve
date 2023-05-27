@@ -8,7 +8,7 @@ using namespace std;
 #define f2(i, n) for (int i = 1; i < n; i++)
 #define endl "\n"
 #define pb push_back
-#define mp make_pair
+//#define mp make_pair
 #define vi vector<int>
 #define pi pair<int, int>
 #define all(x) x.begin(), x.end()
@@ -18,7 +18,9 @@ using namespace std;
 #define int long long
 #define INF 1000000000
 #define mod 1000000007
+//_________________Function_______________
 int Ceil(int a, int b){return (a + b - 1) / b;}
+int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; b /= 2; } return res;}
 //_________________template______________
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
@@ -26,30 +28,24 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a,b;cin>>a>>b;
-    int res= 0;
-    int x = min(a,b);
-    int y = max(a,b);
-    int xx = x;
-    int m = 1;
-    
-    int r_m = 0;
-    m = Ceil(y, 2);
-    if(x == y){
-        cout << x + 1 << endl;
+    int n;cin>>n;
+    vi v(n); int idx = 0;
+    if(n != 1 && n % 2 != 0){
+        cout << -1 << endl;
         return;
     }
-
-    // if(x > (y/2)){
-    //     res = 2 + 2 + m-1;
-    //     if((y/2)*2 != y) res++;
-    //     cout << res << endl;
-    //     return;
-    // }
-
-    res = 3 + (m-1);
-    // if(x > (y/2)) res++;
-    cout << res << endl;    
+    int even = n; int odd = 1;
+    for(int i = 0; i<n; i++){
+        if(!(i & 1)){
+            v[i] = even;
+            even -= 2;
+        }else {
+            v[i] = odd;
+            odd+=2;
+        }
+    }
+    
+    cout << v << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
