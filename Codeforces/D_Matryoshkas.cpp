@@ -37,15 +37,11 @@
         int cnt = 0;
         while(st.size()){
             int p = *st.begin();
-            while(1){
+            while(st.find(p) != st.end()){
                 st.erase(st.find(p));
                 p++;
-                auto it = st.find(p);
-                if(it == st.end()){
-                    cnt++;
-                    break;
-                }
             }
+            cnt++;
         }
         cout << cnt << endl;
     }
