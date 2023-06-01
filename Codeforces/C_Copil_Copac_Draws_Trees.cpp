@@ -25,48 +25,59 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-int binaray_exp(int a, int b)
-{
-    int res = 1;
-    while (b)
-    {
-        if(b&1){
-            res *= a;
-            res %= mod;
-            b--;
+
+vector<pair<int,int>>adj[1000000];
+map<pair<int,int>,int> mp;
+vector<int>dis;
+
+void dfs(int cur, int par){
+
+    for(auto i:adj[cur]){
+        int id = i.ss;
+        int to = i.ff;
+
+        if(to == par) continue;
+        mp[{cur, to}] = id;
+        mp[{to, cur}] = id;
+        if(dis[cur] != INT_MAX){
+            if(cur == 1){
+                dis[to] = 1;
+            }else{
+                if(id < mp[{cur, par}]){
+                    dis[to] = dis[cur]+1;
+                }else{
+                    dis[to] = dis[cur];
+                }
+            }
         }
-        a *= a;
-        a %= mod;
-        b /= 2;
+        dfs(to, cur);
     }
-    return res;
 }
 void sol()
 {
-    int n,k;cin>>n>>k;
-    if(k == 1){
-        cout << 1 << endl;
-        return;
-    }
-    int mul = 1;
-    int p = k;
-    if(n <= k){
-        int nn = n;
-        while(nn>0){
-            mul *= p;
-            mul %= mod;
-            p--; 
-            nn--;
-        }
-        cout << mul << endl;
-        return;
+    int n;cin>>n;
+    mp.clear();
+    dis.clear();
+
+    for(int i=0;i<=n;i++){
+         adj[i].clear();
     }
 
-    int bad = n - k;
+    dis.assign(n+1, LLONG_MAX);
+    dis[0] = 0;
+    dis[1] = 0;
 
-    int res = (binaray_exp(k, n) % mod) - (bad > 0 ? 0 : (binaray_exp(k, bad) % mod));
-    cout << res << endl;
-    
+    for(int i = 1; i<n; i++){
+        int u,v;cin>>u>>v;
+        adj[u].push_back({v,i});
+        adj[v].push_back({u,i});
+    }
+
+    dfs(1, -1);
+
+    int mx = *max_element(all(dis));
+    cout << mx << endl;
+
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
