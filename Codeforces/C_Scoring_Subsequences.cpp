@@ -31,24 +31,16 @@ void sol()
     int n;cin>>n;
     vi v(n); cin>>v;
 
-    int res = 0;
-    int idx = 1; int div = 1;
-    int mul = 1;
-    for(int i = n-1; i>=0; i--){
-        mul *= v[i];
-        int temp = mul/div;
-        if(temp > res){
-            res = temp;
-        }else{
-            break;
+    multiset<int>st;
+    for(int i = 0; i<n; i++){
+        st.insert(v[i]);
+        while(st.size() > *st.begin()){
+            auto it = st.begin();
+            st.erase(st.find(*it));
         }
-        idx++;
-        div *= idx;
+        cout << st.size()<<" ";
     }
-    int m = res; 
-    // cout << m << endl;
-
-    
+    cout << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

@@ -4,5 +4,6 @@
         "ostream": "cpp",
         "iosfwd": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "cph.general.onceMaintainerMessage": false
 }
