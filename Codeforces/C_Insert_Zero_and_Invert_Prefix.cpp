@@ -27,44 +27,37 @@ template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for 
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
 void sol()
-{   
-    vector<int>nums;
-    nums = {31,25,18,59};
-    int x; x = 27;
-    long ans = accumulate(nums.begin(),nums.end(),0);
-    long n = nums.size();
-    long mn = *min_element(nums.begin(), nums.end());
-    long idx = -1;
-    for(int i = 0; i<n; i++){
-        if(nums[i] == mn){
-            idx = i;
-            break;
-        }
+{
+    int n;cin>>n; vi v(n); cin>>v;
+    if(v[n-1] == 1) {
+        cout << "NO"<<endl;
+        return;
     }
-    // cout << mn <<" "<<ans <<" "<<n<<" "<<idx << endl;
-    
-    for(long op = 1; op < n; op++){
-        long temp = (op*x) + (op+1)*mn;
-        long temp_sum = 0;
-        
-        long num_of_sum = (n-(op+1));
-        
-        long i = idx+op+1;
 
-        for(int j = 0; j<num_of_sum; j++){
-            if(i >= n){
-                i = n - i;
-            }      
-            temp_sum += nums[i];
-            i++;
+    cout <<"YES"<<endl;
+    vector<int>res;
+    int cnt0  = 0,cnt1=0;
+    for(int i = n-1; i >= 0; i--){
+        if(v[i] == 0){
+            if(cnt1){
+                res.pop_back();
+                res.push_back(cnt1);
+                cnt1 = 0;
+            }
+            cnt0++;
+            res.pb(0);
         }
-        cout << temp <<" "<<temp_sum << endl;
-        temp += temp_sum;
-        
-        ans = min(ans, temp);
+        else{
+            cnt1++;
+            res.pb(0);
+        }
     }
-    
-    cout << ans << endl;
+    if(cnt1){
+        res.pop_back();
+        res.push_back(cnt1);
+        cnt1 = 0;
+    }
+    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -73,7 +66,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
