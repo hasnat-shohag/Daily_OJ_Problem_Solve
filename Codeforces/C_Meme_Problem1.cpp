@@ -25,22 +25,26 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
 void sol()
 {
-    int n = 200000, m = 200000;
-    vi a(n), b(m);
+    cout << setprecision(15);
+    double d; cin>>d;
 
-    for(int i = 0; i<n; i++){
-        int temp = rand();
-        a[i] = temp;
+    double l = 0.0, r = d;
+
+    for(int i = 0; i<= 300; i++){
+        double m = (l+r)/2.0;
+        double a = m, b = d - m;
+        
+        if(abs(a*b - (a+b)) <= 0.000001){
+            cout <<"Y "<<max(a,b)<<" "<<min(a,b)<<endl;
+            return;
+        }
+        if(a*b > d) r = m;
+        else l = m;
     }
-    for(int i = 0; i<m; i++){
-        int temp = rand();
-        b[i] = temp;
-    }
-    cout <<a << endl;
-    cout << b << endl;
+    cout <<"N"<<endl;
+
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -49,7 +53,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

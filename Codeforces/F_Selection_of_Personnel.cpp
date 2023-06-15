@@ -19,6 +19,8 @@ using namespace std;
 #define INF 1000000000
 #define mod 1000000007
 //_________________Function_______________
+int nCr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1; result /= i; } return result; }
+int nPr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1;} return result; }
 int Ceil(int a, int b){return (a + b - 1) / b;}
 int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; b /= 2; } return res;}
 //_________________template______________
@@ -28,19 +30,9 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n = 200000, m = 200000;
-    vi a(n), b(m);
-
-    for(int i = 0; i<n; i++){
-        int temp = rand();
-        a[i] = temp;
-    }
-    for(int i = 0; i<m; i++){
-        int temp = rand();
-        b[i] = temp;
-    }
-    cout <<a << endl;
-    cout << b << endl;
+    int n;cin>>n;
+    int res = nCr(n, 5)+nCr(n,6)+nCr(n,7);
+    cout << res <<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

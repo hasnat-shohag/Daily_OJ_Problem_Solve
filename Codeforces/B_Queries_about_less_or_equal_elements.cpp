@@ -28,19 +28,22 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n = 200000, m = 200000;
-    vi a(n), b(m);
+    int n,m;cin>>n>>m;
+    vi a(n),b(m);
+    cin>>a>>b;
 
-    for(int i = 0; i<n; i++){
-        int temp = rand();
-        a[i] = temp;
+    sort(all(a));
+    for(int i =0; i<m; i++){
+        int val = b[i];
+        auto it = upper_bound(all(a), val); 
+        if(it == a.begin()){
+            cout << 0 << " ";
+            continue;
+        }  
+        int element = it - a.begin();
+        cout << element << " ";
     }
-    for(int i = 0; i<m; i++){
-        int temp = rand();
-        b[i] = temp;
-    }
-    cout <<a << endl;
-    cout << b << endl;
+    cout << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
