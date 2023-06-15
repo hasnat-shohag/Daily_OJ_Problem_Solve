@@ -30,29 +30,55 @@ void sol()
 {
     int n,b;cin>>n>>b;
     vi a(n); cin>>a;
-    if(n == 1){
-        if(a[0] == b){
-            cout <<"YES"<<endl;
-            return;
+    
+    vector<int>vis(n, 0);
+
+    int l = 1;
+    for(int i = 0; i<30; i++){
+        int dicision = (l & b);
+
+        if(dicision == 0){
+            int cnt  = 0;
+            for(int i = 0; i<n; i++){
+                if(vis[i] == 0 && (l & a[i]) == 0){
+                    cnt++;
+                }
+            }
+            if(cnt == 0){
+                cout <<"NO"<<endl;
+                return;
+            }
         }
-    }
-    for(int i = 0; i<n; i++){
-        if(a[i] == b){
-            cout <<"YES"<<endl;
-            return;
+        else{
+            int cnt = 0;
+            for(int i = 0; i<n; i++)
+            {
+                if(vis[i] == 0 && (l&a[i]) == 0){
+                    vis[i] = 1;
+                }else if(vis[i] == 0){
+                    cnt++;
+                }
+            }
+            if(cnt == 0){
+                cout <<"NO"<<endl;
+                return;
+            }
         }
+
+        l <<= 1;
     }
+    int res = -1;
     int cnt = 0;
+
     for(int i = 0; i<n; i++){
-        if((a[i] & b) == b){
+        if(vis[i] == 0 && cnt == 0){
+            res = a[i];
             cnt++;
+        }else if(vis[i] == 0){
+            res = (res & a[i]);
         }
     }
-    if(cnt > 1){
-        cout << "YES"<<endl;
-        return;
-    }
-    cout << "NO" << endl;
+    cout <<(res == b ? "YES":"NO") << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

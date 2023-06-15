@@ -28,31 +28,38 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,b;cin>>n>>b;
-    vi a(n); cin>>a;
-    if(n == 1){
-        if(a[0] == b){
-            cout <<"YES"<<endl;
-            return;
+    int n;cin>>n;
+    vi a(n),b(n); 
+    cin>>a;
+    cin>>b;
+
+    int cnt1 = 0;
+    int cnt2 = 0;
+    int mx1 = 0;
+    f0(i,n){
+        if(a[i] != 0){
+            cnt1++;
+            mx1 = max(cnt1, mx1);
+        }else{
+            cnt1=0;
         }
     }
-    for(int i = 0; i<n; i++){
-        if(a[i] == b){
-            cout <<"YES"<<endl;
-            return;
+    int mx2 = 0;
+    f0(i,n){
+        if(b[i] != 0){
+            cnt2++;
+            mx2 = max(cnt2, mx2);
+        }else{
+            cnt2=0;
         }
     }
-    int cnt = 0;
-    for(int i = 0; i<n; i++){
-        if((a[i] & b) == b){
-            cnt++;
-        }
+    if(mx1 > mx2){
+        cout <<"Om"<<endl;
+    }else if(mx1<mx2){
+        cout <<"Addy"<<endl;
+    }else{
+        cout <<"Draw"<<endl;
     }
-    if(cnt > 1){
-        cout << "YES"<<endl;
-        return;
-    }
-    cout << "NO" << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

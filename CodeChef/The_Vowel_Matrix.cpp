@@ -25,34 +25,35 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
+bool vow(char x){
+    if(x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u'){
+        return true;
+    }
+    return false;
+}
 void sol()
 {
-    int n,b;cin>>n>>b;
-    vi a(n); cin>>a;
-    if(n == 1){
-        if(a[0] == b){
-            cout <<"YES"<<endl;
-            return;
-        }
-    }
-    for(int i = 0; i<n; i++){
-        if(a[i] == b){
-            cout <<"YES"<<endl;
-            return;
-        }
-    }
+    int n,k;cin>>n>>k;
+    int res = 1;
+    string s;cin>>s;
+
     int cnt = 0;
+    int cnt2 = 0;
     for(int i = 0; i<n; i++){
-        if((a[i] & b) == b){
+        if(vow(s[i])){
             cnt++;
+            if(cnt2 > 0){
+                res *= (cnt2+1);
+                res %= mod;
+                cnt2 = 0;
+            }
+        }else{
+            if(cnt % k == 0 && cnt != 0){
+                cnt2++;
+            }
         }
     }
-    if(cnt > 1){
-        cout << "YES"<<endl;
-        return;
-    }
-    cout << "NO" << endl;
+    cout << res <<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

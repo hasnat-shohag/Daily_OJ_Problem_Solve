@@ -1,1 +1,1 @@
-{"name":"Local: test","url":"/home/hs/Daily_OJ_Problem_Solve/test.cpp","tests":[{"id":1680501091861,"input":"31 25 18 59\n27","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hs/Daily_OJ_Problem_Solve/test.cpp","group":"local","local":true}
+{"name":"Local: test","url":"/home/hs/Daily_OJ_Problem_Solve/test.cpp","tests":[{"id":1680501091861,"input":"2\n6 5\n1 7 3 4 2 13\n3 2\n1 3 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hs/Daily_OJ_Problem_Solve/test.cpp","group":"local","local":true}

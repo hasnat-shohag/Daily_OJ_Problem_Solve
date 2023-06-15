@@ -28,31 +28,9 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,b;cin>>n>>b;
-    vi a(n); cin>>a;
-    if(n == 1){
-        if(a[0] == b){
-            cout <<"YES"<<endl;
-            return;
-        }
-    }
-    for(int i = 0; i<n; i++){
-        if(a[i] == b){
-            cout <<"YES"<<endl;
-            return;
-        }
-    }
-    int cnt = 0;
-    for(int i = 0; i<n; i++){
-        if((a[i] & b) == b){
-            cnt++;
-        }
-    }
-    if(cnt > 1){
-        cout << "YES"<<endl;
-        return;
-    }
-    cout << "NO" << endl;
+    int n,k;cin>>n>>k;
+    int res = k / 2;
+    cout << res + 1 << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
