@@ -1,4 +1,4 @@
-# python
+// python
 
 n = 64
 total_sum = 0
