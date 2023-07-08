@@ -30,23 +30,23 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
-
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
-        }else{
-            r--;
+    int n;cin>>n;
+    map<int,int>mp;
+    bool flag = false;
+    vi v(n);cin>>v;
+    sort(all(v));
+    
+    for(int i = 0; i<n; i++){
+        int x;x = v[i];
+        mp[x]++;
+        if(x == 0){
+            continue;
+        }
+        if(mp[x-1]<mp[x]){
+            flag = true;
         }
     }
-    
+    if(flag)cout<<"NO"<<endl;else cout <<"YES"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -55,7 +55,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

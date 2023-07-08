@@ -27,26 +27,49 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
+int fun(int x, int n){
+    string s = "";
+    while (x>0)
+    {
+        int rem = x % n;
+        s += rem + '0';
+        x /= n;
+    }
+    reverse(all(s));
+    return stoi(s);
+}
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
-
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
-        }else{
-            r--;
+    int n;cin>>n;
+    vector<vector<int>>v(n);
+    
+    for(int i = 1; i<n; i++){
+        for(int j = 1; j<n; j++){
+            int temp = i*j;
+            v[i-1].pb(temp);
         }
     }
-    
+    for(int i = 1; i<n; i++){
+        for(int j = 1; j<n; j++){
+            if(v[i-1][j-1] > n-1){
+                int temp = fun(v[i-1][j-1], n);
+                v[i-1][j-1] = temp;
+            }
+        }
+    }
+    for(int i = 0; i<n-1; i++){
+        for(int j = 0; j<n-1; j++){
+            if(j>0){
+                if(v[i][j]<10){
+                    cout <<"  ";
+                }else{
+                    cout <<" ";
+                }
+            }
+            cout << v[i][j];
+        }
+        cout << endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

@@ -30,23 +30,49 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
+    string s1,s2;cin>>s1>>s2;
+    int n, t, number;
+    char ch1,ch2;
+    cin>>n;
+    set<pair<int, pair<string,int>>>st; // time , Team name, number
+    map<int, int>mp1,mp2; // number 
+    
 
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
+    f0(i,n){
+        cin>>t>>ch1>>number>>ch2;
+        if(ch1 == 'h'){
+            if(ch2 == 'r' && mp1[number] >= 0){
+                mp1[number] = -100000;
+                pair<string, int> innerPair(s1, number);
+                pair<int, pair<string, int>> valuePair(t, innerPair);
+                st.insert(valuePair);
+            }
+            mp1[number]++;
+            if(mp1[number] == 2){
+                pair<string, int> innerPair(s1, number);
+                pair<int, pair<string, int>> valuePair(t, innerPair);
+                st.insert(valuePair);
+                mp1[number] = -100000;
+            }
         }else{
-            r--;
+            if(ch2 == 'r' && mp2[number]>=0){
+                mp2[number] = -100000;
+                pair<string, int> innerPair(s2, number);
+                pair<int, pair<string, int>> valuePair(t, innerPair);
+                st.insert(valuePair);
+            }
+            mp2[number]++;
+            if(mp2[number] == 2){
+                pair<string, int> innerPair(s2, number);
+                pair<int, pair<string, int>> valuePair(t, innerPair);
+                st.insert(valuePair);
+                mp2[number] = -100000;
+            }
         }
     }
-    
+    for(auto it:st){
+        cout << it.ss.ff<<" "<<it.ss.ss<<" "<<it.ff<<endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

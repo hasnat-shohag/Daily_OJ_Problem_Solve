@@ -30,23 +30,28 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
+    int n;cin>>n;
+    set<int, greater<int>>st; st.insert(n);
 
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
-        }else{
-            r--;
+    while(n>1){
+        int nn = n; 
+        for(int i=2;i*i<=n;i++){
+            if(n%i==0){
+                n/=i;
+                st.insert(n);
+                break;
+            }
+        }
+        if(nn==n) {
+            st.insert(n);
+            break; 
         }
     }
-    
+    st.insert(1); 
+    for(auto it :st){
+        cout << it <<" ";
+    }
+    cout <<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

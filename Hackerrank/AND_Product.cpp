@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -30,23 +38,21 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
-
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
-        }else{
-            r--;
-        }
-    }
-    
+    int a,b;cin>>a>>b; 
+    int d = b-a; 
+    int res = 0; 
+    int f = 1;
+    for(int i=0; i<32;i++){ 
+        if(d>(f<<i)){ 
+            continue; 
+        } 
+        else{ 
+            if((a&(f<<i)) and (b&(f<<i))){ 
+                res += (f<<i); 
+            } 
+        } 
+    } 
+    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -55,7 +61,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

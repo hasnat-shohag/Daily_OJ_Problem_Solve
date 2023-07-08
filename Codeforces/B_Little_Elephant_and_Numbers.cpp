@@ -27,26 +27,36 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
+int n;
+string s;
+bool check(int x){
+    while(x>0){
+        int rem = x % 10;
+        for(int i = 0; i<s.size(); i++){
+            if(rem == (s[i]-'0')){
+                return true;
+            }
+        }
+        x /= 10;
+    }
+    return false;
+}
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
-
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
-        }else{
-            r--;
+    cin>>n;
+    int cnt = 0;
+    s = to_string(n);
+    for(int i = 1; i*i <= n; i++){
+        if(n % i == 0){
+            if(i*i == n){
+                cnt += check(i);
+            }else{
+                cnt += check(i);
+                cnt += check(n/i);
+            }
         }
     }
-    
+    cout << cnt << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

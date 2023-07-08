@@ -30,23 +30,39 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    vector<int>height = {2,3,4,5,18,17,6};
+    string s;
+    getline(cin, s);
+    vector<string>v;
+    string temp = "";
+    int space = 0;
 
-    int res = -1;
-    int l = 0, r = height.size(); --r;
-
-    while(l < r){
-        int mn_val = min(height[l], height[r]);
-        int temp = (r-l)*mn_val;
-        res = max(temp, res);
-        cout << l <<" "<<r << endl;
-        if(height[l] == mn_val){
-            l++;
-        }else{
-            r--;
+    for(int i = 0; i<s.size(); i++){ 
+        if(s[i] == ',' || s[i] == '.' || s[i] == '!' || s[i] == '?'){
+            temp += s[i];
+            v.pb(temp);
+            temp = "";
+            space = 0;
+        }
+        else if(s[i] != ' '){
+            if(space && temp.size()){
+                v.pb(temp);
+                temp = "";
+            }
+            temp += s[i];
+            space = 0;
+        }
+        else if(s[i] == ' '){
+            space++;
         }
     }
-    
+    if(temp.size()){
+        v.pb(temp);
+    }
+    for(int elm  = 0; elm+1<v.size();elm++){
+        cout << v[elm] <<" ";
+    }
+    int l = v.size();
+    cout << v[l-1]<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
