@@ -30,14 +30,30 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    set<int>st1,st2;
-    st1.insert(1);
-    st2.insert(1);
-    if(st1 == st2){
-        cout <<"1"<<endl;
-    }else{
-        cout << 0 << endl;
+    int n;cin>>n;
+    if(n == 1){
+        cout << 1 << endl;
+        return;
     }
+    if(n == 2){
+        cout << 1 <<" "<<2 << endl;
+        return;
+    }
+    int arr[n+1] = {}; 
+    arr[1] = 2;
+    arr[n] = 3;
+    arr[n/2 + 1] = 1;
+    int p = 4;
+    for(int i = 1; i<= n; i++){
+        if(arr[i] == 0){
+            arr[i] = p;
+            p++;
+        }
+    }
+    for(int i = 1; i<= n; i++){
+        cout << arr[i] <<" ";
+    }
+    cout << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -46,7 +62,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

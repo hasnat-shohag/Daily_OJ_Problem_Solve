@@ -30,20 +30,28 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n;cin>>n;
-    vector<vector<int>>v(n);
-    vector<int>res;
-    f0(i,n){
-        f0(j,n){
-            int a;cin>>a;
-            v[i].pb(a);
-        }
+    int x,y,z;
+    cin>>x>>y>>z;
+    int a,b;
+    a = x*y;
+    b = z;
+    if(a % b == 0){
+        cout << a <<" "<<b<<endl;
+        return;
     }
-    res.pb(v[0][1]/2);
-    for(int i = 1; i<n; i++){
-        res.pb(v[0][i]/2);
-    }   
-    cout << res << endl;     
+    a = x * z;
+    b = y;
+    if(a % b == 0){
+        cout << a <<" "<<b<<endl;
+        return;
+    }
+    a = y*z;
+    b = x;
+    if(a % b == 0){
+        cout << a <<" "<<b<<endl;
+        return;
+    }
+    cout << -1 << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -52,7 +60,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

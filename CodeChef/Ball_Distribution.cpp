@@ -30,14 +30,16 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    set<int>st1,st2;
-    st1.insert(1);
-    st2.insert(1);
-    if(st1 == st2){
-        cout <<"1"<<endl;
-    }else{
-        cout << 0 << endl;
-    }
+    int n,m;cin>>n>>m;
+    vi v(m); cin>>v;
+    sort(all(v));
+
+    int mx = v[0];
+    for(int i = 1; i<m; i++){
+        int temp = n - v[i];
+        mx -= temp;
+    }int z = 0;
+    cout << max(z, mx) << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -46,7 +48,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
