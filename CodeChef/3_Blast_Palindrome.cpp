@@ -19,29 +19,40 @@ using namespace std;
 #define INF 1000000000
 #define mod 1000000007
 //_________________Function_______________
+int nPr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1;} return result; }
+int nCr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1; result /= i; } return result; }
 int Ceil(int a, int b){return (a + b - 1) / b;}
 int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; b /= 2; } return res;}
 //_________________template______________
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-int n, t[4*MAXN];
 
-void update(int v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr) {
-        t[v] = new_val;
-    } else {
-        int tm = (tl + tr) / 2;
-        if (pos <= tm)
-            update(v*2, tl, tm, pos, new_val);
-        else
-            update(v*2+1, tm+1, tr, pos, new_val);
-        t[v] = t[v*2] + t[v*2+1];
-    }
-}
 void sol()
 {
-    
+    int n;cin>>n;
+    string s;cin>>s;
+
+    for(int i = 0; i<26; i++){
+        int l = n, r = -1;
+        for(int j = 0; j<n; j++){
+            if((s[j] - 'a') == i && j % 3 == 0 ){
+                l = j;
+                break;
+            }
+        }
+        for(int j = n-1; j>=0; j--){
+            if((s[j]-'a') == i && (n-1-j) % 3 == 0){
+                r = j;
+                break;
+            }
+        }
+        if(r >= l){
+            cout <<"YES"<<endl;
+            return;
+        }
+    }
+    cout <<"NO" << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

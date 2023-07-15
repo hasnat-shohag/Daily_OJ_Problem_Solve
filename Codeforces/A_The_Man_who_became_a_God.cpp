@@ -30,44 +30,23 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-        vector<int>flowerbed = {0,0,0}; int n = 2;
-        int z = 0;
-        int nn = flowerbed.size();
-        
-        int track = 0;
-        for(int i = 0; i<flowerbed.size(); i++){
-            if(flowerbed[i] == 0){
-                z++;
-            }
-            else{
-                if(track == 0){
-                    int cnt = z / 2;
-                    n -= cnt;
-                    track = 1;
-                    z = 0;
-                    continue;
-                }
-                if(z != 0){
-                    int cnt = Ceil(z, 2);
-                    cnt -= 1;
-                    n -= cnt;
-                }
-                z = 0;
-            }
-        }
-    
-        if(z != 0){
-            if(track == 0){
-                int cnt = Ceil(z, 2);
-                n -= cnt;
-            }
-            else{
-                int cnt = z / 2;
-                n -= cnt;
-            }
-        }
-       
-        cout << n << endl;
+    int n,k;cin>>n>>k;
+    vi v(n); cin >> v;
+    if(n == k){
+        cout <<0<<endl;
+        return;
+    }
+    vector<int>res;
+    int sum = 0;
+    for(int i = 0; i<n-1; i++){
+        res.pb(abs(v[i]-v[i+1]));
+    }
+    sort(all(res));
+    // cout << res << endl;
+    for(int i = 0; i<n-k; i++){
+        sum += res[i];
+    }
+    cout << sum << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -76,7 +55,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

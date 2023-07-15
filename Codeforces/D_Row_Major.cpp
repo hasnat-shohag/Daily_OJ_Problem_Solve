@@ -26,48 +26,40 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 //_________________template______________
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
-template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
+template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e;}return os;}
 
 void sol()
 {
-        vector<int>flowerbed = {0,0,0}; int n = 2;
-        int z = 0;
-        int nn = flowerbed.size();
-        
-        int track = 0;
-        for(int i = 0; i<flowerbed.size(); i++){
-            if(flowerbed[i] == 0){
-                z++;
-            }
-            else{
-                if(track == 0){
-                    int cnt = z / 2;
-                    n -= cnt;
-                    track = 1;
-                    z = 0;
-                    continue;
-                }
-                if(z != 0){
-                    int cnt = Ceil(z, 2);
-                    cnt -= 1;
-                    n -= cnt;
-                }
-                z = 0;
-            }
+    int n;cin>>n;
+    int no = 0;
+    for(int i = 1; i <= 26; i++){
+        if(n % i != 0){
+            no = i;
+            break;
         }
+    }
+    if(n == 1){
+        no = 1;
+    }
+    if(n == 2){
+        no = 2;
+    }
+
+    vector<char>v;
+    string s;
     
-        if(z != 0){
-            if(track == 0){
-                int cnt = Ceil(z, 2);
-                n -= cnt;
-            }
-            else{
-                int cnt = z / 2;
-                n -= cnt;
-            }
+    for(int i = 0; i<no; i++){
+        s += ('a'+i);
+    }
+    int j = 0;
+    for(int i = 0; i<n; i++){
+        v.pb(s[j]);
+        j++;
+        if(j == no){
+            j = 0;
         }
-       
-        cout << n << endl;
+    }
+    cout << v << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -76,7 +68,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

@@ -30,44 +30,30 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-        vector<int>flowerbed = {0,0,0}; int n = 2;
-        int z = 0;
-        int nn = flowerbed.size();
-        
-        int track = 0;
-        for(int i = 0; i<flowerbed.size(); i++){
-            if(flowerbed[i] == 0){
-                z++;
+    int n;cin>>n; vi v(n); cin>>v;
+    int cnt = 0;
+    // int zero = count(all(v), 0);
+    int temp=-1;
+    for(int i = 0; i<n; i++){
+        if(v[i] == 0){
+            cnt++;
+            temp = -1;
+        }else{// temp = 2 & 3 = 2 & 1 = 0
+            if(temp == -1){
+                temp = v[i];
             }
             else{
-                if(track == 0){
-                    int cnt = z / 2;
-                    n -= cnt;
-                    track = 1;
-                    z = 0;
-                    continue;
-                }
-                if(z != 0){
-                    int cnt = Ceil(z, 2);
-                    cnt -= 1;
-                    n -= cnt;
-                }
-                z = 0;
+                temp &= v[i];
+            }
+            if(temp == 0){
+                cnt++;
+                temp = -1;
             }
         }
+    }
     
-        if(z != 0){
-            if(track == 0){
-                int cnt = Ceil(z, 2);
-                n -= cnt;
-            }
-            else{
-                int cnt = z / 2;
-                n -= cnt;
-            }
-        }
-       
-        cout << n << endl;
+    int one = 1;
+    cout << max(one, cnt) << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -76,7 +62,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
