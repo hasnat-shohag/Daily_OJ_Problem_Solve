@@ -30,7 +30,25 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    
+    int n;cin>>n;
+    map<string, int>mp,mp2;
+    f0(i,n){
+        string s;cin>>s;
+        string s2 = s;
+        reverse(all(s2));
+        // cout <<s <<" "<<s2<<endl;
+        if(mp2[s2] != 0){
+            continue;
+        }
+        else{
+            mp[s]++;
+            mp2[s]++;
+        }
+    }
+    // for(auto it:mp){
+    //     cout << it.ff << endl;
+    // }
+    cout << mp.size()<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

@@ -30,7 +30,12 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    
+    int n,q,p;cin>>n>>q>>p;
+    vi v(n); cin>>v;
+    sort(all(v));
+    int a = v[0] + p;
+    int b = q;
+    cout << min (a,b)<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

@@ -30,7 +30,32 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    
+    int n, l, r;cin>>n>>l>>r;
+    vi v(n); cin>>v;
+
+    sort(all(v));
+    int left, right;
+    int ans = 0;
+    for(int i = 0; i<n-1; i++){
+        left = (l-v[i] >= 0 ? l-v[i]:-1);
+        right = (r-v[i] >= 0 ? r - v[i]: -1);
+        if(right == -1){
+            break;
+        }
+       else{
+            auto xx = lower_bound(v.begin()+(i+1), v.end(), left);
+            int idxx = xx - v.begin();
+
+            auto it = upper_bound(v.begin()+(i+1), v.end(), right); // 
+            --it;
+            int idx = it - v.begin();
+
+            if(idxx <= idx){
+                ans += (idx - idxx+1);
+            }
+        }
+    }
+    cout << ans << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -39,7 +64,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
