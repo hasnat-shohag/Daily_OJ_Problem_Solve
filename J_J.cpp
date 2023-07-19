@@ -30,9 +30,35 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a = -10;
-    cout << --a << endl;
-    cout << a++<<endl;
+    int n;cin>>n; vi v(n); cin>>v;
+
+    int m;cin>>m;
+    vector<pair<int,int>>cinema;
+    
+    f0(i,n){
+        cin>>cinema[i].ff;
+    }
+    f0(i,n){
+        cin>>cinema[i].ss;
+    }
+    map<int,int>mp;
+    f0(i,n){
+        mp[v[i]]++;
+    }
+    
+    vector<int>freq;
+    for(auto it:mp){
+        freq.pb(it.ss);
+    }
+    sort(all(freq), greater<>());
+    
+    map<int,int>mp2;
+    for(auto it:mp){
+        mp2[it.ss] = it.ff;
+    }
+
+    
+
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

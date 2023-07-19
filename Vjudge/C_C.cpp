@@ -30,9 +30,9 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a = -10;
-    cout << --a << endl;
-    cout << a++<<endl;
+    double a,b;cin>>a>>b;
+    double res = (b/100.0)*a;
+    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

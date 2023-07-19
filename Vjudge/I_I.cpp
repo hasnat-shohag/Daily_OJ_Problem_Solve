@@ -30,9 +30,25 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a = -10;
-    cout << --a << endl;
-    cout << a++<<endl;
+    string s1,s2;cin>>s1>>s2;
+    map<char,int>mp1,mp2;
+    f0(i,s1.size()){
+        mp1[s1[i]]++;
+    }
+    f0(i,s2.size()){
+        mp2[s2[i]]++;
+    }
+    int ans = 0;
+    for(auto it:mp1){
+        ans += min(it.ss, mp2[it.ff]);
+    }
+    for(auto it:mp2){
+        if(mp1[it.ff] == 0){
+            cout << -1 << endl;
+            return;
+        }
+    }
+    cout << ans <<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

@@ -30,9 +30,14 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a = -10;
-    cout << --a << endl;
-    cout << a++<<endl;
+    int n;cin>>n; vi v(n); cin>>v;
+    sort(all(v));
+    int sum1 = 0, sum2 = 0;
+    f0(i,n){
+        if(v[i]<0) sum1 += v[i];
+        else sum2 += v[i];
+    }
+    cout << max(abs(sum1), abs(sum2)) - min(abs(sum1), abs(sum2)) << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -41,7 +46,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

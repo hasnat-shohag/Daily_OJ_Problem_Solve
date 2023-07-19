@@ -30,9 +30,31 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a = -10;
-    cout << --a << endl;
-    cout << a++<<endl;
+    int n;cin>>n;vi v(n); cin>>v;
+
+    int cnt = 0;
+    vector<int>v2(n);
+
+    f0(i,n){
+        if(v[i] == i){
+            cnt++;
+        }
+        v2[v[i]] = i;
+    }
+
+    if(cnt == n){
+        cout << cnt << endl;
+        return;
+    }
+    int val = 1;
+    for(int i = 0; i<n; i++){
+        if(v[i] != i){
+            if(v2[i] == v[i]){
+                val = 2;
+            }
+        }
+    }
+    cout << cnt + val << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

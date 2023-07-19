@@ -30,9 +30,9 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int a = -10;
-    cout << --a << endl;
-    cout << a++<<endl;
+    int a,b,c,d;cin>>a>>b>>c>>d;
+    int res = max(a +b , c+d);
+    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -41,7 +41,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
