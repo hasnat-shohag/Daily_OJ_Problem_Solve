@@ -30,30 +30,43 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    if(n == 1 && m == 1){
-        cout << 0 << endl;
-        return;
+    int n,k1,k2;cin>>n>>k1>>k2;
+    vector<int>a(n),b(n);
+    multiset<int>st;
+    for(int i= 0; i<n; i++){
+        cin>>a[i];
     }
-    if((n == 2 && m== 1) || (n == 1 && m == 2)){
-        cout << 1 << endl;
-        return;
+    for(int i= 0; i<n; i++){
+        cin>>b[i];
     }
-    if(n == 1 || m == 1){
-        cout << -1 << endl;
-        return;
+
+    for(int i = 0; i<n; i++){
+        st.insert(abs(a[i]-b[i]));
     }
-    int res = 0;
-    int mn = min(n,m)-1;
-    res += (mn*2);
-    int c  = max(n,m)-min(n,m);
-    if(c & 1){
-        c = c*2 - 1;
-    }else{
-        c = c * 2;
+    int total = k1+k2;
+
+    while(total>0){
+        auto it = st.end(); --it;
+        int val = *it;
+        if(val == 0){
+            break;
+        }
+        st.erase(st.find(val));
+        st.insert(--val);
+        total--;
     }
-    res += c;
-    cout << res <<endl;
+    // cout << total << endl;
+    if(total>0 && (total & 1)){
+        auto it = st.end(); --it;
+        int val = *it;
+        st.erase(st.find(val));
+        st.insert(++val);
+    }
+    int ans = 0;
+    for(auto it:st){
+        ans += pow(it,2);
+    }
+    cout << ans << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -62,7 +75,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();

@@ -30,30 +30,44 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    if(n == 1 && m == 1){
-        cout << 0 << endl;
-        return;
+    int n;cin>>n;
+    vi v(n); cin>>v;
+    sort(all(v));
+    map<int,int>mp;
+
+    for(int i = 0; i<n; i++){
+        if(v[i] <= n){
+            mp[v[i]]++;
+        }else{
+            break;
+        }
     }
-    if((n == 2 && m== 1) || (n == 1 && m == 2)){
-        cout << 1 << endl;
-        return;
+    vector<bool>vis(n+5);
+    int ans = 0;
+    for(int i = 0; i<n; i++){
+        if(v[i] > n){
+            break;
+        }
+        int cnt = 0;
+        if(!vis[v[i]]){
+            vis[v[i]] = 1;
+            vector<int>vec;
+
+            for(int j = 1; j*j <= v[i]; j++){
+                if(v[i] % j == 0){
+                    vec.pb(j);
+                    if(j * j != v[i]){
+                        vec.pb(v[i]/j);
+                    }
+                }
+            }
+            for(int k = 0; k<vec.size(); k++){
+                cnt += mp[vec[k]];
+            }
+            ans = max(ans, cnt);
+        }
     }
-    if(n == 1 || m == 1){
-        cout << -1 << endl;
-        return;
-    }
-    int res = 0;
-    int mn = min(n,m)-1;
-    res += (mn*2);
-    int c  = max(n,m)-min(n,m);
-    if(c & 1){
-        c = c*2 - 1;
-    }else{
-        c = c * 2;
-    }
-    res += c;
-    cout << res <<endl;
+    cout << ans << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

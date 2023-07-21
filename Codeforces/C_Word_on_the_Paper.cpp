@@ -30,35 +30,21 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n;cin>>n; vi v(n); cin>>v;
-
-    int m;cin>>m;
-    vector<pair<int,int>>cinema;
-    
-    f0(i,n){
-        cin>>cinema[i].ff;
+    char arr[9][9];
+    for(int i = 1; i<= 8; i++){
+        for(int j = 1; j<=8; j++){
+            cin>>arr[i][j];
+        }
     }
-    f0(i,n){
-        cin>>cinema[i].ss;
+    string s = "";
+    for(int i = 1; i<= 8; i++){
+        for(int j = 1; j<=8; j++){
+            if(arr[i][j] != '.'){
+                s += arr[i][j];
+            }
+        }
     }
-    map<int,int>mp;
-    f0(i,n){
-        mp[v[i]]++;
-    }
-    
-    vector<int>freq;
-    for(auto it:mp){
-        freq.pb(it.ss);
-    }
-    sort(all(freq), greater<>());
-    
-    map<int,int>mp2;
-    for(auto it:mp){
-        mp2[it.ss] = it.ff;
-    }
-
-    
-
+    cout << s << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -67,7 +53,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();

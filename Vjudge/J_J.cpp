@@ -30,30 +30,46 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    if(n == 1 && m == 1){
-        cout << 0 << endl;
+    int n;cin>>n; vi v(n); cin>>v;
+
+    int m;cin>>m;
+    vector<pair<int,int>>cinema(m);
+    
+    f0(i,m){
+        cin>>cinema[i].ff;
+    }
+    f0(i,m){
+        cin>>cinema[i].ss;
+    }
+    map<int,int>mp;
+    f0(i,n){
+        mp[v[i]]++;
+    }
+    
+    int mx = 0;
+    for(int i = 0; i<m; i++){
+        mx = max(mx, mp[cinema[i].ff]);
+    }
+    // cout << mx << endl;
+    vector<int>freq; // for audio signal
+    for(int i = 0; i<m; i++){
+        if(mx == mp[cinema[i].ff]){
+            freq.pb(i);
+        }
+    }
+    if(freq.size() == 1){
+        cout << freq[0]+1<<endl;
         return;
     }
-    if((n == 2 && m== 1) || (n == 1 && m == 2)){
-        cout << 1 << endl;
-        return;
+    int idx = -1;
+    mx = -1;
+    for(int i = 0; i<freq.size(); i++){
+        if(mx<mp[cinema[freq[i]].ss]){
+            mx = mp[cinema[freq[i]].ss];
+            idx = freq[i];
+        }
     }
-    if(n == 1 || m == 1){
-        cout << -1 << endl;
-        return;
-    }
-    int res = 0;
-    int mn = min(n,m)-1;
-    res += (mn*2);
-    int c  = max(n,m)-min(n,m);
-    if(c & 1){
-        c = c*2 - 1;
-    }else{
-        c = c * 2;
-    }
-    res += c;
-    cout << res <<endl;
+    cout << idx+1 << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -62,7 +78,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();

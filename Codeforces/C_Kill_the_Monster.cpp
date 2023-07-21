@@ -30,30 +30,22 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    if(n == 1 && m == 1){
-        cout << 0 << endl;
-        return;
+    int ch,ca,mh,ma;cin>>ch>>ca>>mh>>ma;
+    int k,w,a;cin>>k>>w>>a;
+    
+    int cn1,cn2,res1,res2;
+    for(int i = 0; i<=k; i++){
+        res1 = ch + (a*i);
+        res2 = ca + (w*(k-i));
+        cn1 = Ceil(res1 , ma);
+        cn2 = Ceil(mh , res2);
+
+        if(cn1 >= cn2){
+            cout << "YES" << endl;
+            return;
+        }
     }
-    if((n == 2 && m== 1) || (n == 1 && m == 2)){
-        cout << 1 << endl;
-        return;
-    }
-    if(n == 1 || m == 1){
-        cout << -1 << endl;
-        return;
-    }
-    int res = 0;
-    int mn = min(n,m)-1;
-    res += (mn*2);
-    int c  = max(n,m)-min(n,m);
-    if(c & 1){
-        c = c*2 - 1;
-    }else{
-        c = c * 2;
-    }
-    res += c;
-    cout << res <<endl;
+    cout << "NO" << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

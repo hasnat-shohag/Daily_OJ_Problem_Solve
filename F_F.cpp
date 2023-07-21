@@ -30,30 +30,44 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    if(n == 1 && m == 1){
-        cout << 0 << endl;
-        return;
-    }
-    if((n == 2 && m== 1) || (n == 1 && m == 2)){
-        cout << 1 << endl;
-        return;
-    }
-    if(n == 1 || m == 1){
+    int n,k;cin>>n>>k;
+    if(n == 4 && k == 3){
         cout << -1 << endl;
         return;
     }
-    int res = 0;
-    int mn = min(n,m)-1;
-    res += (mn*2);
-    int c  = max(n,m)-min(n,m);
-    if(c & 1){
-        c = c*2 - 1;
-    }else{
-        c = c * 2;
+    vector<int>a,b;
+    for(int i = 0; i<n/2; i++){
+        a.pb(i);
     }
-    res += c;
-    cout << res <<endl;
+
+    for(int i = n-1; i>=n/2; i--){
+        b.pb(i);
+    }
+
+    if(k == (n-1)){
+        swap(b[1], b[n/2-1]);
+        for(int l = 0; l<a.size(); l++){
+            cout << a[l] <<" "<<b[l]<<endl;
+        }
+        swap(b[1], b[n/2-1]);
+        return;
+    }
+    int p = 0;
+    if(n/2>k){
+        swap(b[0], b[k]);
+        p= 0;
+    }else{
+        swap(b[0], a[(n/2 - 1) - (k - n/2)]);
+        p = 1;
+    }
+    for(int l = 0; l<a.size(); l++){
+        cout << a[l] <<" "<<b[l]<<endl;
+    }
+    // (p == 0 ?swap(b[0], b[(n/2 - 1) - (k - n/2)]):swap(b[0], a[k]));
+    (p == 0 ?swap(b[0], b[k]): swap(b[0], a[(n/2 - 1) - (k - n/2)]));
+    // for(int l = 0; l<a.size(); l++){
+    //     cout << a[l] <<" "<<b[l]<<endl;
+    // }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
