@@ -30,44 +30,31 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n;cin>>n;
-    vi v(n); cin>>v;
-    sort(all(v));
-    map<int,int>mp;
+    int n;cin>>n;vi v(n); cin>>v;
 
+    int cnt = 0;
+    vector<int>v2(n);
+
+    f0(i,n){
+        if(v[i] == i){
+            cnt++;
+        }
+        v2[v[i]] = i;
+    }
+
+    if(cnt == n){
+        cout << cnt << endl;
+        return;
+    }
+    int val = 1;
     for(int i = 0; i<n; i++){
-        if(v[i] <= n){
-            mp[v[i]]++;
-        }else{
-            break;
+        if(v[i] != i){
+            if(v2[i] == v[i]){
+                val = 2;
+            }
         }
     }
-    vector<bool>vis(n+5);
-    int ans = 0;
-    for(int i = 0; i<n; i++){
-        if(v[i] > n){
-            break;
-        }
-        int cnt = 0;
-        if(!vis[v[i]]){
-            vis[v[i]] = 1;
-            vector<int>vec;
-
-            for(int j = 1; j*j <= v[i]; j++){
-                if(v[i] % j == 0){
-                    vec.pb(j);
-                    if(j * j != v[i]){
-                        vec.pb(v[i]/j);
-                    }
-                }
-            }
-            for(int k = 0; k<vec.size(); k++){
-                cnt += mp[vec[k]];
-            }
-            ans = max(ans, cnt);
-        }
-    }
-    cout << ans << endl;
+    cout << cnt + val << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -76,7 +63,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();

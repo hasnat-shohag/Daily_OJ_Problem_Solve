@@ -1,1 +1,1 @@
-{"name":"Local: test","url":"/home/hs/Daily_OJ_Problem_Solve/test.c","tests":[{"id":1687880588368,"input":"14 45 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hs/Daily_OJ_Problem_Solve/test.c","group":"local","local":true}
+{"name":"Local: test","url":"/home/hs/Daily_OJ_Problem_Solve/test.c","tests":[{"id":1687880588368,"input":"abs sba","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hs/Daily_OJ_Problem_Solve/test.c","group":"local","local":true}
