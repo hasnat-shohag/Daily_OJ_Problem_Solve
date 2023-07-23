@@ -30,44 +30,22 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,k;cin>>n>>k;
-    if(n == 4 && k == 3){
-        cout << -1 << endl;
+    int n;cin>>n;
+    vi v(n); cin>>v;
+    if(!is_sorted(all(v))){
+        cout <<0 << endl;
         return;
     }
-    vector<int>a,b;
-    for(int i = 0; i<n/2; i++){
-        a.pb(i);
-    }
+    int mn = LLONG_MAX;
 
-    for(int i = n-1; i>=n/2; i--){
-        b.pb(i);
+    for(int i = 0; i+1<n; i++){
+        int temp = v[i+1]-v[i];
+        // cout << temp << endl;
+        mn = min(mn, temp);
     }
-
-    if(k == (n-1)){
-        swap(b[1], b[n/2-1]);
-        for(int l = 0; l<a.size(); l++){
-            cout << a[l] <<" "<<b[l]<<endl;
-        }
-        swap(b[1], b[n/2-1]);
-        return;
-    }
-    int p = 0;
-    if(n/2>k){
-        swap(b[0], b[k]);
-        p= 0;
-    }else{
-        swap(b[0], a[(n/2 - 1) - (k - n/2)]);
-        p = 1;
-    }
-    for(int l = 0; l<a.size(); l++){
-        cout << a[l] <<" "<<b[l]<<endl;
-    }
-    // (p == 0 ?swap(b[0], b[(n/2 - 1) - (k - n/2)]):swap(b[0], a[k]));
-    (p == 0 ?swap(b[0], b[k]): swap(b[0], a[(n/2 - 1) - (k - n/2)]));
-    // for(int l = 0; l<a.size(); l++){
-    //     cout << a[l] <<" "<<b[l]<<endl;
-    // }
+    ++mn;
+    int res = Ceil(mn, 2);
+    cout << res << endl; 
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

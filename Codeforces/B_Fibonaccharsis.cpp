@@ -30,15 +30,48 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n;cin>>n; vi v(n);cin>>v;
-    int mx = *max_element(all(v));
-    int temp = 0;
-    int ans = mx;
-    for(int i = 0; i<n; i++){
-        temp = (mx^v[i]);
-        ans = max(ans, temp);
+    int n,k;cin>>n>>k;
+    if(k > 29){
+        cout << 0 << endl;
+        return;
     }
-    cout << ans << endl;
+    if(k == 3){
+        int res = n/2 + 1;
+        cout << res << endl;
+        return;
+    }
+
+    int idx = 0;
+    int got_it = -1;
+    int cnt = 0;
+    for(int i = n-1; i>=0; i--){
+        int nn = n;
+        int temp = i;
+        bool flag = true;
+        for(int j = 0; j<k-2; j++){
+            int notun = nn - temp;
+            if(notun > temp){
+                flag = false;
+                break;
+            }
+            nn = temp;
+            temp = notun;
+            idx = notun;
+        }
+
+        if(flag){
+            cnt++;
+            // something
+        }
+    }
+    cout << cnt << endl;
+    return;
+    
+    if(got_it == -1) cout << 0 << endl;
+    else{
+        if(got_it & 1) cout << got_it / 2 << endl;
+        else cout << got_it/2 + 1 << endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
