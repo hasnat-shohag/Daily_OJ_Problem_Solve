@@ -1,61 +1,22 @@
 #include <bits/stdc++.h>
-using namespace std;
+#include <time.h>
 
-#define FastIO ios_base::sync_with_stdio(0), cin.tie(0)
-#define TxtIO  freopen("input.txt", "r", stdin); freopen("output.txt", "w", stdout);
-#define f0(i, n) for (int i = 0; i < n; i++)
-#define f1(i, n) for (int i = 1; i <= n; i++)
-#define f2(i, n) for (int i = 1; i < n; i++)
-#define endl "\n"
-#define pb push_back
-//#define mp make_pair
-#define vi vector<int>
-#define pi pair<int, int>
-#define all(x) x.begin(), x.end()
-#define sqrt sqrtl
-#define ff first
-#define ss second
-#define int long long
-#define INF 1000000000
-#define mod 1000000007
-//_________________Function_______________
-int nPr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1;} return result; }
-int nCr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1; result /= i; } return result; }
-int Ceil(int a, int b){return (a + b - 1) / b;}
-int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; b /= 2; } return res;}
-//_________________template______________
+int main() {
+    clock_t start_time, end_time;
+    double time_taken;
+    int counter = 0;
 
-template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
-template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
+    start_time = clock(); // Record the start time
 
-void sol()
-{
-    vector<int>f(1e6);
-    f[0] = 0, f[1] = 1;
-
-    int cnt = 0;
-    for(int i = 2; ; i++){
-        f[i] = f[i-1]+f[i-2];
-        if(f[i] > 2*1e5){
-            break;
-        }
-        cnt++;
+    // Your loop here
+    while ((double)(clock() - start_time) / CLOCKS_PER_SEC < 1.0) {
+        counter++;
     }
-    for(int i = 0; i<30; i++){
-        cout << f[i]<<" ";
-    }cout << endl;
-    cout <<cnt << endl;
-}
-//Before Submit handle the case for 0 and 1
-int32_t main()
-{
-    FastIO;
-    //TxtIO;
-    int tt;
-    tt = 1;
-    // cin >> tt;
-    while (tt--)
-    {
-        sol();
-    }
+
+    end_time = clock(); // Record the end time
+
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("Loop executed %d times in %lf seconds.\n", counter, time_taken);
+
+    return 0;
 }

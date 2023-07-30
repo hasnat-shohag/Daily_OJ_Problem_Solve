@@ -30,37 +30,42 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
+    while (true)
+    {
+        /* code */
+    
     int n;cin>>n;
-    vi v(n);
-    cin>>v;
-    int x;cin>>x;
+    if(n == 0){
+        return;
+    }
 
     vector<int>res;
     stack<int>st;
-
+    int nite_hobe = 1;
+    int feedup;
     for(int i = 0; i<n; i++){
-        if(!st.size()){
-            st.push(v[i]);
-            continue;
+        cin>>feedup;
+        while(!st.empty() && st.top() == nite_hobe){
+            nite_hobe++;
+            st.pop(); 
         }
-        int val = st.top();
-        if(v[i] > val){
-            while(st.top() < v[i]){
-                res.pb(st.top());
-                st.pop();
-            }
-            st.push(v[i]);
-        }else{
-            st.push(v[i]);
+        if (feedup == nite_hobe) {
+            nite_hobe++;
+        } 
+        else {
+            st.push(feedup);
         }
     }
-    while(st.size()){
-        res.pb(st.top());
+    
+    while(!st.empty() && st.top() == nite_hobe){
+        nite_hobe++;
         st.pop();
     }
-    if(is_sorted(all(res))){
+    // cout<<nite_hobe<<endl; 
+    if(st.empty() && nite_hobe==n+1){
         cout <<"yes"<<endl;
     }else cout <<"no"<<endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
