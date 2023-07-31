@@ -30,7 +30,33 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
+    int n,k=0; 
+    cin>>n;
+    int ans=LLONG_MAX;
 
+    vi v(n);
+    cin>>v;
+
+    sort(all(v));
+
+    int l=0,r=1e18,m;
+    while(l<=r){
+        m=(l+r)/2;
+        int cnt=1,j=0;
+        for(int i=0; i<n; i++){
+            int k =upper_bound(all(v),v[j]+m+m)-v.begin();
+            if(k==n)break;
+            cnt++;
+            if(cnt>3)break;
+            j=k;
+        }
+        if(cnt<=3){
+            ans=min(ans,m);
+            r=m-1;
+        }
+        else l=m+1;
+    }
+    cout<<ans<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

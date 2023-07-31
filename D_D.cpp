@@ -19,8 +19,6 @@ using namespace std;
 #define INF 1000000000
 #define mod 1000000007
 //_________________Function_______________
-int nPr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1;} return result; }
-int nCr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1; result /= i; } return result; }
 int Ceil(int a, int b){return (a + b - 1) / b;}
 int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; b /= 2; } return res;}
 //_________________template______________
@@ -30,7 +28,36 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
+    int n;cin>>n;
+    vi a(n),b(n);cin>>a>>b;
+    sort(all(a));
+    sort(all(b));
 
+    int ans = 1;
+    for(int i = 0; i<n; i++){
+        if(a[i]<= b[i]){
+            cout << 0 << endl;
+            return;
+        }
+    }    
+
+    for(int i = 0; i<n; i++){
+        int l = i; int r = n-1;
+        int temp = 1;
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(a[i]>b[mid]){
+                l = mid+1;
+                temp = mid-i+1;
+            }else{
+                r = mid-1;
+            }
+        }
+        // cout << temp << endl;
+        ans *= temp;
+        ans %= mod;
+    }
+    cout << ans << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
