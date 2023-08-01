@@ -30,8 +30,41 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n;cin>>n;
-    cout << 7 << endl;
+    int n;cin>>n; multiset<pair<int,int>>st;
+    map<int,int>mp;
+    for(int i = 0; i<n; i++){
+        int x;cin>>x;
+        mp[x]++;
+    }
+    for(auto [x,y]:mp){
+        st.insert({y, x}); // freq, val
+    }
+    // for(auto [x,y]:st){
+    //     cout << x <<" "<<y<<endl;
+    // }
+
+    while (st.size() > 1)  
+    {
+        auto f = st.begin();
+        auto l = st.end();
+        --l;
+        
+        int fo = f->ff;
+        int lo = l->ff;
+        fo--; lo--;
+
+
+        if (fo != 0) {
+            st.insert({fo, f->ss});
+        }
+        if (lo != 0) {
+            st.insert({lo, l->ss});
+        }
+        st.erase(f);
+        st.erase(l);
+    }
+    if(!st.size()) cout << 0 << endl;
+    else cout << st.begin()->ff <<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
