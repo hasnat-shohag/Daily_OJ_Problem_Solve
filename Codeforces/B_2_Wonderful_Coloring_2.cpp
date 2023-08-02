@@ -27,18 +27,73 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
+// int ll = 1;
 void sol()
 {
-    int n;cin>>n; 
-    int l = pow(2, n);
-    vi v(l);
-    cin>>v;
+    int n;cin>>n;
+    int k;cin>>k;
+    vi v(n);
+    map<int, vector<int>>mp;
+    map<int, int>freq;
 
+    set<int>st;
+    multiset<int>mst;
+    int x; 
     for(int i = 0; i<n; i++){
-        cout << v[i+1]<<" ";
+        cin>>x; v[i] = x;
+        mp[x].pb(i);
+        freq[x]++;
     }
-    cout << endl;
+
+    for(int i = 1; i<= k; i++){
+        st.insert(i);
+    }
+
+    vector<int>res(n, 0);
+    int sum = 0;
+    vector<pair<int,int>>occ; // freq, val
+    for(auto it:freq){
+        occ.pb({it.ss, it.ff});
+        if(it.ss < k){
+            sum += it.ss;
+        }
+    }
+
+    sort(all(occ), greater<>());
+    vector<int>val;
+
+    for(int i = 0; i<occ.size(); i++){
+        // mp[occ[i].ss]
+        if(occ[i].ff >= k){
+            auto it = st.begin();
+            for(int j = 0, l = 0; j<mp[occ[i].ss].size() && l < k; j++, l++){
+                // occ[i].ss key
+                res[mp[occ[i].ss][j]] = *it;
+                it++;
+            }
+        }else{
+            val.pb(occ[i].ss);
+        }
+    }
+    vector<int>vec;
+    for(int i = 0; i<val.size(); i++){
+        for(int j = 0; j<mp[val[i]].size(); j++){
+            vec.pb(mp[val[i]][j]);
+        }
+    }
+    
+    auto it = st.begin();
+
+    for(int i = 0; i<sum - (sum % k); i++){
+        res[vec[i]] = *it;
+        it++;
+        if(it == st.end()){
+            it = st.begin();
+        }
+    }
+
+    cout << res << endl;
+    // ll++;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
