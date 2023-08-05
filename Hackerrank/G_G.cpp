@@ -43,7 +43,6 @@ void sol()
         cout << -1 << endl;
         return;
     }
-    
     for(int i = 0; i<n5; i++) cout <<5;
     for(int i = 0; i<n-n5; i++) cout <<3;
     cout << endl;
