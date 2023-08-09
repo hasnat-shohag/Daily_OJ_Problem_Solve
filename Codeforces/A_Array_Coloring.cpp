@@ -30,20 +30,14 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol()
 {
-    int n,m;cin>>n>>m;
-    map<string, int>st;
-
-    string s;cin>>s;
-    f0(j,m){
-        int l,r;cin>>l>>r;
-        // l,r;
-        string ss = s;
-            
-        sort(ss.begin() + (l-1), ss.begin()+r);
-        st[ss]++;
-        // cout << ss << endl;
+    int n;cin>>n;
+    vi v(n); cin>>v;
+    int cnt = 0;
+    f0(i,n){
+        if(v[i] % 2 != 0) cnt++;
     }
-    cout << st.size() << endl;
+    if(cnt & 1) cout <<"NO"<<endl;
+    else cout <<"YES"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
