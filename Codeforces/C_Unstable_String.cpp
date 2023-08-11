@@ -11,7 +11,7 @@ using namespace std;
 //#define mp make_pair
 #define vi vector<int>
 #define pi pair<int, int>
-#define all(x) x.begin(), x.end()
+#define aint(x) x.begin(), x.end()
 #define sqrt sqrtl
 #define ff first
 #define ss second
@@ -27,22 +27,40 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
-void sol()
-{
-    string s;cin>>s;
+char cng(char ch){
+    if (ch == '1') return '0';
+    else return '1';
+}
+ 
+void sol(){
+    string s; cin>>s;
     int n = s.size();
-    int sum = 0;
-    int cnt1 = 0, cnt2 = 0;
-    for(int i = 0; i<n; i++){
-        if(s[i] != '?'){
-            cnt1++;
+    int ans = 0, q = 0, cnt = 0;
+    char ager = '.';
+    int agerq = 0;
+    for (int i = 0; i < n; i++) {
+        if (ager == '.' && s[i] == '?') {
+            cnt++;                                                      
+        } else if (ager=='.') {
+            ager = s[i]; cnt++;
+        } else if (s[i] == '0' && ager == '1') {
+            cnt++; ager = cng(ager); q = 0;
+        } else if (s[i] == '1' && ager == '0') {
+            cnt++; ager = cng(ager); q = 0;
+        } else if (s[i] == '?') {
+            q++; cnt++; ager = cng(ager);
+        } else if (s[i] == ager) {
+ 
+            ans += (cnt+agerq)*(cnt+1+agerq)/2; 
+            cnt = 1; ager = s[i]; agerq = 0;
+            if (q) {
+                ans -= q*(q+1)/2;
+                agerq = q; q = 0;
+            }
         }
-        else{
-            cnt2++;
-        }
-        
     }
+    ans += (cnt+agerq)*(cnt+1+agerq)/2; 
+    cout << ans << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
