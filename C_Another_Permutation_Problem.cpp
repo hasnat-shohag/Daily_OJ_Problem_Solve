@@ -31,55 +31,31 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 void sol()
 {
     int n;cin>>n;
-    int cnt = 0;
-    vector<int>v;
+    vi v;
     for(int i = 0; i<n; i++){
         v.pb(i+1);
+
     }
-    vi vv = {1,2,5,4,3};
-    int ans= 0;
-    do{
-            int sum = 0;
-            int mx = -1;
-            for(int i = 0; i<n; i++){
-            // cnt++;
-            sum += (i+1)*v[i];
-            // cout << (i+1)*(i+1)<<endl;
-            mx = max(mx, (i+1)*v[i]);
-        }
-        // int mm = n;
-        // for(int i = n/2; i<n; i++){
-        //     // cnt++;
-        //     sum += (i+1)*v[i];
-        //     // cout << (i+1)*mm<<endl;
-        //     mx = max(mx, (i+1)*v[i]);
-        //     // mm--;
-        // }
-        sum -= mx;
-            // cout << v << endl;
-        // cout << sum << endl;
-        if(sum == 303){
-            cout << v << endl;
-            break;
-        }
-        ans = max(ans, sum);
-    }while (next_permutation(all(v)));
-    cout << ans << endl;
-    // for(int i = 0; i<n/2; i++){
-    //         // cnt++;
-    //         sum += (i+1)*(i+1);
-    //         // cout << (i+1)*(i+1)<<endl;
-    //         mx = max(mx, (i+1)*(i+1));
-    //     }
-    //     int mm = n;
-    //     for(int i = n/2; i<n; i++){
-    //         // cnt++;
-    //         sum += (i+1)*(mm);
-    //         // cout << (i+1)*mm<<endl;
-    //         mx = max(mx, (i+1)*mm);
-    //         mm--;
-    //     }
-    
+    int nn = n / 2;
+    int len = nn-1;
+    len /= 2;
+    int j = n-1;
+    int idx = nn+1;
+    for(int k = 0; k<len; k++){
+        swap(v[idx], v[j]);
+        idx++, j--;
+    }
+
+    int sum = 0;
+    int mx = -1;
+    for(int i = 0; i<n; i++){
+    // cnt++;
+        sum += (i+1)*v[i];
+    // cout << (i+1)*(i+1)<<endl;
+        mx = max(mx, (i+1)*v[i]);
+    }
+    // cout << v << endl;
+    cout << sum - mx << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -88,7 +64,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     while (tt--)
     {
         sol();
