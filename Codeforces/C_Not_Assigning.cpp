@@ -27,43 +27,74 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
+vector<vector<int>>v;
+vector<int>vis;
+map<pair<int,int>,int>res;
+int cnt;
 
+void dfs(int node, int bndhu){
+    if(cnt == 0){
+        cnt = 2;
+    }else{
+        if(cnt == 2) 
+        {
+            res[{node, bndhu}] = cnt;
+            res[{bndhu, node}] = cnt; cnt = 3;
+        }
+        else {
+            res[{node, bndhu}] = cnt; 
+            res[{bndhu, node}] = cnt; 
+            cnt = 2;
+        }
+    }
+
+    vis[node] = 1;
+    for(int x: v[node]){
+        if(!vis[x]){
+            dfs(x, node);
+        }
+    }
+
+}
 void sol()
 {
     int n;cin>>n;
-    vector<int>a(n),b(n);
-    map<int, vector<int>>mp;
-    for(int i = 0; i<n; i++){
-        cin>>a[i];
-    }
-    for(int i = 0; i<n; i++){
-        cin>>b[i];
-    }
+    res.clear();
+    v.clear();
+    vis.clear();
+    cnt = 0;
+    v.resize(n+1);
+    vis.resize(n+1);
+    map<int,int>mp;
+    vector<pair<int, int>>vec;
 
-    for(int i = 0; i<n; i++){
-        mp[a[i]].push_back(b[i]);
+    int u,vv;
+    for(int i = 1; i<n; i++){
+        cin>>u>>vv;
+        vec.pb({u,vv});
+        v[u].pb(vv);
+        v[vv].pb(u);
+        mp[u]++; mp[vv]++;
     }
-
-    for(auto &[x,y]: mp){
-        sort(all(y), greater<int>());
-    }
-    // 1 2 3 4 // 1 3 
-    for(auto &[x,y]: mp){
-        for(int i = 1; i<y.size(); i++){
-            y[i] += y[i-1]; 
-        }
-    }
-
-    vector<int>res(n);
-    
     for(auto [x,y]:mp){
-        for(int i = 0; i<y.size(); i++){
-            int sz = y.size();
-            int temp = sz/(i+1)*(i+1);
-            res[i] += y[temp-1];
+        if(y>2){
+            cout << -1 << endl;
+            return;
         }
     }
-    cout << res << endl;
+    int root = -1;
+    for(auto [x,y]:mp){
+        if(y==1){
+            root = x;
+            break;
+        }
+    }
+    dfs(root, 0);
+
+    for(pair<int,int> z : vec){
+        cout << res[z]<<" ";
+    }
+    cout << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
