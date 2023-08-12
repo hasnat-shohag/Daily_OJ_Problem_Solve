@@ -31,39 +31,23 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 void sol()
 {
     int n;cin>>n;
-    vector<int>a(n),b(n);
-    map<int, vector<int>>mp;
-    for(int i = 0; i<n; i++){
-        cin>>a[i];
-    }
-    for(int i = 0; i<n; i++){
-        cin>>b[i];
-    }
+    vector<int>v(n);
+    cin>>v;
 
-    for(int i = 0; i<n; i++){
-        mp[a[i]].push_back(b[i]);
-    }
+    sort(all(v));
+    int sum1 = v[0], sum2 = v[n-1];
+    int i = 1, j = n - 2;
 
-    for(auto &[x,y]: mp){
-        sort(all(y), greater<int>());
-    }
-    // 1 2 3 4 // 1 3 
-    for(auto &[x,y]: mp){
-        for(int i = 1; i<y.size(); i++){
-            y[i] += y[i-1]; 
+    while(i<=j){
+        if(sum1 <= sum2){
+            sum1 += v[i];
+            i++;
+        }else{
+            sum2 += v[j];
+            j--;
         }
     }
-
-    vector<int>res(n);
-    
-    for(auto [x,y]:mp){
-        for(int i = 0; i<y.size(); i++){
-            int sz = y.size();
-            int temp = sz/(i+1)*(i+1);
-            res[i] += y[temp-1];
-        }
-    }
-    cout << res << endl;
+    cout << sum1 <<" "<<sum2 << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -72,7 +56,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     while (tt--)
     {
         sol();
