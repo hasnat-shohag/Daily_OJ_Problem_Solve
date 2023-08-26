@@ -30,7 +30,34 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    cout << (1<<0)<<endl;
+    int n,k;cin>>n>>k;
+    string s;
+
+    for(int i = 0; i<k/2; i++){
+        s.pb('0');
+    }
+
+    for(int i = 0; i<n-k; i++){
+        s.pb('0');
+    }
+
+    for(int i = (k/2)+(n-k); i<n; i++){
+        s.pb('1');
+    }
+    string str = s;
+    reverse(all(str));
+
+    int cnt =0;
+    for(int i =0 ; i<n; i++){
+        if(s[i] != str[i]) cnt++;
+    }
+    if(cnt == k){
+        cout <<"YES"<<endl;
+        cout << s << endl;
+        return;
+    }
+    
+    cout <<"NO"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -39,7 +66,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;  
     for(int i = 1; i<= tt; i++)
     {
         sol(i);

@@ -28,9 +28,28 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
-void sol(int tc)
+void sol()
 {
-    cout << (1<<0)<<endl;
+    int n;cin>>n;vector<int>v(n); cin>>v;
+    int pos1,pos2,posn;
+    for(int i = 0; i<n; i++){
+        if(v[i] == 1){
+            pos1 = i;
+        }
+        if(v[i] == 2){
+            pos2 = i;
+        }
+        if(v[i] == n){
+            posn = i;
+        }
+    }
+    if((posn > pos1 and posn < pos2)or(posn < pos1 and posn > pos2)){
+        cout << pos1+1 <<" "<<pos2+1<<endl;
+    }else if((posn < pos1 and posn < pos2)){
+        cout << posn +1 <<" "<< min(pos1, pos2)+1 << endl;
+    }else{
+        cout << posn + 1 <<" "<< max(pos1, pos2) + 1 << endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -39,9 +58,9 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
-    for(int i = 1; i<= tt; i++)
+    cin >> tt;
+    while (tt--)
     {
-        sol(i);
+        sol();
     }
 }

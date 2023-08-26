@@ -30,7 +30,31 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    cout << (1<<0)<<endl;
+    int n;cin>>n;
+    vi v(n);cin>>v;
+
+    if(n != v[0]){
+        cout <<"NO"<<endl;
+        return;
+    }
+
+    multiset<int>mp;
+    for(int i  =0; i<n; i++){
+        mp.insert(v[i]);
+    }
+
+    vector<int>res;
+
+    for(int i = 1; i<= n; i++){
+        res.pb(mp.size());
+        while (mp.size() && *mp.begin() <= i)
+        {
+            mp.erase(*mp.begin());
+        }
+        
+    }
+    if(res == v) cout <<"YES"<<endl;
+    else cout <<"NO" << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -39,7 +63,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);

@@ -28,9 +28,29 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
-void sol(int tc)
+void sol()
 {
-    cout << (1<<0)<<endl;
+    int n,m;cin>>n>>m;
+    // cout << n << m<<endl;
+    string v[n];
+
+    for(int i = 0; i<n; i++){
+        cin>>v[i];
+    }
+
+    string s = "vika";
+
+    int idx = 0;
+    for(int i = 0; i<m; i++){
+        for(int j = 0; j<n; j++){
+            if(s[idx] == v[j][i]){
+                idx++;
+                break;
+            }
+        }
+    }
+    if(idx == 4) cout <<"YES"<<endl;
+    else cout <<"NO"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -39,9 +59,9 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
-    for(int i = 1; i<= tt; i++)
+    cin >> tt;
+    while (tt--)
     {
-        sol(i);
+        sol();
     }
 }

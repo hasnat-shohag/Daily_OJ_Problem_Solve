@@ -30,7 +30,26 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    cout << (1<<0)<<endl;
+    int x;cin>>x;
+
+    for(int i = 0; i<= 100; i++){
+        int y  = i;
+        int a,b;
+        a = (x+y)*(x+y);
+        b = (x+y)*(x+y)*(x+y);
+
+        string s;
+        s = to_string(a) + to_string(b);
+        // cout << s << endl;
+        string str = "0123456789";
+        if(s.size() == 10){
+            sort(all(s));
+            if(s == str){
+                cout << y << endl;
+                return;
+            }
+        }
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
