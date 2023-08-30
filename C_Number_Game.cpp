@@ -27,73 +27,63 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-set<int>st;
-int MEX;
-int fun(int val, int mex) {
-    st.insert(val); 
-    
-    int tar;
-    auto it = st.upper_bound(mex);
-    if(it == st.begin()){
-        tar = 0;
-    }else{
-        it--; 
-        tar = *it;
-    }
 
-    for(auto x = it; x != st.end(); x++) {
-        if(*x != tar){ 
-            MEX = tar;
-            return tar;
-        }
-        tar++;
-    }
-    MEX = tar;
-    return tar; 
-} 
-
-void sol()
+void sol(int tc)
 {
-    st.clear(); 
-    int n;cin>>n; 
-    vector<int>v(n);
-    cin>>v;
-    vector<int>mex(n);
-    if(v[n-1] == 0){
-        mex[n-1] = 1;
-    } else{
-        mex[n-1] = 0;
+    int n;cin>>n;
+    if(n == 1){
+        cout << "FastestFinger"<<endl;
+        return;
     }
+    if(n&1){
+        cout << "Ashishgup"<<endl;
+        return;
+    }
+    int res = 0;
 
-    st.insert(v[n-1]); 
-    MEX = mex[n-1];
-
-    for(int i = n-2; i>=0; i--) {
-        int mx = fun(v[i], MEX);
-        mex[i] = mx; 
-    } 
-    
-
-    vector<int>res;
-    for(int i = 0; i<n; i++){
-        int tar = mex[i]; 
-        res.pb(tar);
-
-        set<int>st2;
-        for(int j = i; j<n; j++){
-            if(v[j] > tar){
-                continue;
+    while(n != 1){
+        if(n == 2){
+            // cout <<"ok";
+            if(res == 0){
+                cout<<"Ashishgup"<<endl;
+            }else{
+                cout <<"FastestFinger"<<endl;
             }
-            st2.insert(v[j]);
-            if(st2.size() == tar){
-                i = j;
-                break;
+            return;
+        }
+        if(n & 1){
+            res ^= 1;
+            break;
+        }
+
+        int mn = LLONG_MAX;
+        for(int i = 2; i*i<= n; i++){
+            if(n % i == 0){
+                int temp = n / i;
+                if(i & 1){
+                    mn = min(mn, i);
+                }
+                if(temp & 1){
+                    mn = min(mn, temp);
+                }
             }
         }
+        if(mn != LLONG_MAX){
+            n /= mn;
+        } 
+        else{
+            if(res == 0){
+                cout<<"FastestFinger"<<endl;
+            }else{
+                cout <<"Ashishgup"<<endl;
+            }
+            return;
+        }
+        res ^= 1;
     } 
-    
-    cout<< res.size() <<endl;
-    cout << res << endl;
+    // cout << "OK";
+    if(res == 0) cout<<"FastestFinger"<<endl;
+    else cout <<"Ashishgup"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -103,8 +93,8 @@ int32_t main()
     int tt;
     tt = 1;
     cin >> tt;
-    while (tt--)
+    for(int i = 1; i<= tt; i++)
     {
-        sol();
+        sol(i);
     }
 }

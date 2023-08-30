@@ -27,73 +27,51 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-set<int>st;
-int MEX;
-int fun(int val, int mex) {
-    st.insert(val); 
-    
-    int tar;
-    auto it = st.upper_bound(mex);
-    if(it == st.begin()){
-        tar = 0;
-    }else{
-        it--; 
-        tar = *it;
-    }
 
-    for(auto x = it; x != st.end(); x++) {
-        if(*x != tar){ 
-            MEX = tar;
-            return tar;
-        }
-        tar++;
-    }
-    MEX = tar;
-    return tar; 
-} 
-
-void sol()
+void sol(int tc)
 {
-    st.clear(); 
-    int n;cin>>n; 
+    int n;cin>>n;
     vector<int>v(n);
-    cin>>v;
-    vector<int>mex(n);
-    if(v[n-1] == 0){
-        mex[n-1] = 1;
-    } else{
-        mex[n-1] = 0;
+    map<int,int>mp;
+
+    for(int i = 0; i<n; i++){
+        cin>>v[i];
+        mp[v[i]] = i+1;
+    }
+    if(n == 1){
+        cout << 0 << endl;
+        return;
     }
 
-    st.insert(v[n-1]); 
-    MEX = mex[n-1];
+    int cnt = 0;
+    if(v[0] == n){
+        cnt++;
+        n--;
+    }
 
-    for(int i = n-2; i>=0; i--) {
-        int mx = fun(v[i], MEX);
-        mex[i] = mx; 
-    } 
-    
+    for(int i = 1; i<n; i++){
+        int idx = mp[i];
+        bool flag = false;
+        while(i < n && mp[i+1] > idx){
+            i++;
+            idx = mp[i];
+            flag = true;
+        } 
 
-    vector<int>res;
-    for(int i = 0; i<n; i++){
-        int tar = mex[i]; 
-        res.pb(tar);
-
-        set<int>st2;
-        for(int j = i; j<n; j++){
-            if(v[j] > tar){
-                continue;
-            }
-            st2.insert(v[j]);
-            if(st2.size() == tar){
-                i = j;
-                break;
-            }
+        if(i != n)
+            cnt++;
+        // cout << mp[i]<<" "<<mp[i-1]<<endl;
+        if(!flag and mp[i] == mp[i+1]-1){
+            // cout <<"ok";
+            i++;
+        }else if(flag and mp[i] + 1 == mp[i-1]){
+            i++;
         }
+        // cout <<i <<endl;
+        // if(flag) i--;
     } 
     
-    cout<< res.size() <<endl;
-    cout << res << endl;
+    cout << cnt << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -103,8 +81,8 @@ int32_t main()
     int tt;
     tt = 1;
     cin >> tt;
-    while (tt--)
+    for(int i = 1; i<= tt; i++)
     {
-        sol();
+        sol(i);
     }
 }
