@@ -1,12 +1,29 @@
-n = int(input())  # Read the number of integers
+from collections import defaultdict
 
-arr = [int(input()) for _ in range(n)]  # Read the array elements
+# Function to calculate the number of pairs of equal graphs
+def count_equal_graphs(n, edges):
+    graph_counts = defaultdict(int)
+    equal_graph_pairs = 0
 
-dp = [1] * n  # Initialize dp array with 1, as each element is a valid sequence of length 1
+    for i in range(n):
+        for j in range(i, n):
+            subgraph = sorted(edges[i:j + 1])
+            graph_counts[tuple(subgraph)] += 1
 
-for i in range(n - 2, -1, -1):
-    if arr[i + 1] - arr[i] >= 2:
-        dp[i] = dp[i + 1] + 1
+    for count in graph_counts.values():
+        # Calculate the number of pairs for each unique graph representation
+        equal_graph_pairs += (count * (count - 1)) // 2
 
-for length in dp:
-    print(length)
+    return equal_graph_pairs
+
+# Main function
+def main():
+    T = int(input())
+    for _ in range(T):
+        n = int(input())
+        edges = [tuple(map(int, input().split())) for _ in range(n)]
+        result = count_equal_graphs(n, edges)
+        print(result)
+
+if __name__ == "__main__":
+    main()

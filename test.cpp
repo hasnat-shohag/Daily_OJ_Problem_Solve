@@ -1,47 +1,53 @@
-#include <bits/stdc++.h>
+
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+
 using namespace std;
 
-#define FastIO ios_base::sync_with_stdio(0), cin.tie(0)
-#define TxtIO  freopen("input.txt", "r", stdin); freopen("output.txt", "w", stdout);
-#define f0(i, n) for (int i = 0; i < n; i++)
-#define f1(i, n) for (int i = 1; i <= n; i++)
-#define f2(i, n) for (int i = 1; i < n; i++)
-#define endl "\n"
-#define pb push_back
-//#define mp make_pair
-#define vi vector<int>
-#define pi pair<int, int>
-#define all(x) x.begin(), x.end()
-#define sqrt sqrtl
-#define ff first
-#define ss second
-#define int long long
-#define INF 1000000000
-#define mod 1000000007
-//_________________Function_______________
-int nPr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1;} return result; }
-int nCr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1; result /= i; } return result; }
-int Ceil(int a, int b){return (a + b - 1) / b;}
-int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; b /= 2; } return res;}
-//_________________template______________
+// Function to calculate the number of pairs of equal graphs
+long long countEqualGraphs(int n, vector<pair<int, int>>& edges) {
+    map<vector<int>, int> graphCounts;
+    long long equalGraphPairs = 0;
 
-template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
-template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
+    for (int i = 0; i < n; ++i) {
+        for (int j = i; j < n; ++j) {
+            vector<int> subgraph;
+            for (int k = i; k <= j; ++k) {
+                subgraph.push_back(edges[k].first);
+                subgraph.push_back(edges[k].second);
+            }
+            sort(subgraph.begin(), subgraph.end());
 
-void sol(int tc)
-{
-    cout << (1<<0)<<endl;
-}
-//Before Submit handle the case for 0 and 1
-int32_t main()
-{
-    FastIO;
-    //TxtIO;
-    int tt;
-    tt = 1;
-    // cin >> tt;
-    for(int i = 1; i<= tt; i++)
-    {
-        sol(i);
+            graphCounts[subgraph]++;
+        }
     }
+
+    for (const auto& countPair : graphCounts) {
+        int count = countPair.second;
+        equalGraphPairs += (static_cast<long long>(count) * (count - 1)) / 2;
+    }
+
+    return equalGraphPairs;
+}
+
+int main() {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int n;
+        cin >> n;
+
+        vector<pair<int, int>> edges(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> edges[i].first >> edges[i].second;
+        }
+
+        long long result = countEqualGraphs(n, edges);
+        cout << result << endl;
+    }
+
+    return 0;
 }

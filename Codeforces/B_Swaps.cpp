@@ -28,44 +28,32 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
-int countEqualGraphs(int n, vector<pair<int, int>>& edges) {
-    map<vector<int>, int> graphCounts;
-    int equalGraphPairs = 0;
-
-    for (int i = 0; i < n; ++i) {
-        for (int j = i; j < n; ++j) {
-            vector<int> subgraph;
-            for (int k = i; k <= j; ++k) {
-                subgraph.pb(edges[k].first);
-                subgraph.pb(edges[k].second);
-            }
-            sort(all(subgraph));
-
-            graphCounts[subgraph]++;
-        }
-    }
-
-    for (const auto& countPair : graphCounts) {
-        int count = countPair.second;
-        equalGraphPairs += ((count) * (count - 1)) / 2;
-    }
-
-    return equalGraphPairs;
-}
-
 void sol(int tc)
 {
-    int n;
-    cin >> n;
-
-    vector<pair<int, int>> edges(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> edges[i].first >> edges[i].second;
+    int n;cin>>n;
+    vi a(n);
+    cin>>a;
+    vector<pi>v(n);
+    map<int,int>mp;
+    f0(i,n){
+        cin>>v[i].ff;
+        v[i].ss = i;
+        mp[a[i]] = i;
     }
-
-    int result = countEqualGraphs(n, edges);
-    cout << result << endl;
-}
+    sort(all(v));
+    int mn = LLONG_MAX;
+    for(int i = (int)v.size()-1;i>=0; i--){
+        mn = min(mn, v[i].ss);
+        v[i].ss = mn;
+    }   
+    int ans = LLONG_MAX;
+    int idx = 0;
+    for(int i = 1; i<= 2*n; i+=2){
+        ans = min(ans, v[idx].ss + mp[i]);
+        idx++;
+    }
+    cout << ans << endl;
+}   
 //Before Submit handle the case for 0 and 1
 int32_t main()
 {

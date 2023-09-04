@@ -28,43 +28,45 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
-int countEqualGraphs(int n, vector<pair<int, int>>& edges) {
-    map<vector<int>, int> graphCounts;
-    int equalGraphPairs = 0;
-
-    for (int i = 0; i < n; ++i) {
-        for (int j = i; j < n; ++j) {
-            vector<int> subgraph;
-            for (int k = i; k <= j; ++k) {
-                subgraph.pb(edges[k].first);
-                subgraph.pb(edges[k].second);
-            }
-            sort(all(subgraph));
-
-            graphCounts[subgraph]++;
-        }
-    }
-
-    for (const auto& countPair : graphCounts) {
-        int count = countPair.second;
-        equalGraphPairs += ((count) * (count - 1)) / 2;
-    }
-
-    return equalGraphPairs;
-}
-
 void sol(int tc)
 {
-    int n;
-    cin >> n;
-
-    vector<pair<int, int>> edges(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> edges[i].first >> edges[i].second;
+    string s;cin>>s;
+    for(int i = 8; i>=1; i--){
+        if(s[i] == '1'){
+            for(int j = 0; j<i; j++){
+                if(s[j] == '3' or s[j] == '4' or s[j] == '6' or s[j] == '7'){
+                    cout << s[j]<<s[i]<<endl;
+                    return;
+                }
+            }
+        }
+        if(s[i] == '3'){
+            for(int j = 0; j<i; j++){
+                if(s[j] == '1' or s[j] == '2' or s[j] == '5' or s[j] == '5' or s[j] == '7' or s[j] == '8'){
+                    cout << s[j]<<s[i]<<endl;
+                    return;
+                }
+            }
+        }
+        
+        if(s[i] == '7'){
+            for(int j = 0; j<i; j++){
+                if(s[j] == '1' or s[j] == '3' or s[j] == '4' or s[j] == '6' or s[j] == '9'){
+                    cout << s[j]<<s[i]<<endl;
+                    return;
+                }
+            }
+        }
+        if(s[i] == '9'){
+            for(int j = 0; j<i; j++){
+                if(s[j] == '1' or s[j] == '5' or s[j] == '7' or s[j] == '8'){
+                    cout << s[j]<<s[i]<<endl;
+                    return;
+                }
+            }
+        }
     }
-
-    int result = countEqualGraphs(n, edges);
-    cout << result << endl;
+    cout << -1 << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
