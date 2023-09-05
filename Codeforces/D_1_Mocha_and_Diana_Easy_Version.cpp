@@ -11,7 +11,7 @@ using namespace std;
 //#define mp make_pair
 #define vi vector<int>
 #define pi pair<int, int>
-#define all(x) x.begin(), x.end()
+#define aint(x) x.begin(), x.end()
 #define sqrt sqrtl
 #define ff first
 #define ss second
@@ -28,52 +28,69 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
+int find_set(int x, vector<pair<int,int>> & parent){
+    if(parent[x].ff==x){
+        return x;
+    }
+    return parent[x].ff = find_set(parent[x].ff,parent);
+}
+ 
+void union_set(int x,int y,vector<pair<int,int>>& parent){
+    int xroot = find_set(x,parent);
+    int yroot = find_set(y,parent);
+    if(xroot==yroot){
+        return;
+    }
+    if(parent[xroot].ss>parent[yroot].ss){
+        parent[yroot].ff = xroot;
+    }
+    else if(parent[yroot].ss>parent[xroot].ss){
+        parent[xroot].ff = yroot;
+    }
+    else{
+        parent[xroot].ss++;
+        parent[yroot].ff = xroot;
+    }
+}
 void sol(int tc)
 {
-    int n;cin>>n; vi a(n),b(n);
-    map<int,int>mp2,mp;
-    cin>>a>>b;
-
-    int cnt = 1;
-    for(int i = 0; i<n-1; i++){
-        if(a[i] == a[i+1]){
-            cnt++;
-            mp[a[i]] = max(cnt, mp[a[i]]);
-        }else{
-            cnt = 1;
-            mp[a[i]] = max(1LL, mp[a[i]]);
+    int n,m1,m2;
+    cin>>n>>m1>>m2;
+    
+    vector<pi> parent1,parent2;
+    for(int i=0;i<=n+1;i++){
+        parent1.pb({i,0});
+        parent2.pb({i,0});
+    }
+    
+    vector<vi> mat1(n+1,vi(n+1,0)); 
+    vector<vi> mat2(n+1,vi(n+1,0));
+    
+    while(m1--){
+        int a,b;
+        cin>>a>>b;
+        union_set(a,b,parent1);
+    }
+    
+    while(m2--){
+        int a,b;
+        cin>>a>>b;
+        union_set(a,b,parent2);
+    }
+    vector<pi> ans;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            if(find_set(i,parent1)!=find_set(j,parent1) and find_set(i,parent2)!=find_set(j,parent2)){
+                ans.pb({i,j});
+                union_set(i,j,parent1);
+                union_set(i,j,parent2);
+            }
         }
     }
-    mp[a[n-1]] = max(cnt, mp[a[n-1]]);
-
-    cnt = 1;
-    for(int i = 0; i<n-1; i++){
-        if(b[i] == b[i+1]){
-            cnt++;
-            mp2[b[i]] = max(cnt, mp2[b[i]]);
-        }else{
-            cnt = 1;
-            mp2[b[i]] = max(1LL, mp2[b[i]]);
-        }
+    cout<<ans.size()<<endl;
+    for(auto it:ans){
+        cout<<it.ff<<" "<<it.ss<<endl;
     }
-    mp2[b[n-1]] = max(cnt, mp2[b[n-1]]);
-
-    int mx = -1;
-    int ans = -1;
-    for(auto it:mp){
-        mx = max(mx, it.ss+mp2[it.ff]);
-        ans = max(ans, mx);
-    }
-
-    mx = -1;
-    for(auto it:mp2){
-        mx = max(mx, it.ss+mp[it.ff]);
-        ans = max(ans, mx);
-    }
-    cout << mx << endl;
-    // for(auto it:mp2){
-    //     cout << it.ff<<"->" <<it.ss << endl;
-    // }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -82,7 +99,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);
