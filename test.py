@@ -1,29 +1,36 @@
-from collections import defaultdict
+import math
 
-# Function to calculate the number of pairs of equal graphs
-def count_equal_graphs(n, edges):
-    graph_counts = defaultdict(int)
-    equal_graph_pairs = 0
+def prime_factors_count(n, p):
+    count = 0
+    while n >= p:
+        count += n // p
+        n //= p
+    return count
 
-    for i in range(n):
-        for j in range(i, n):
-            subgraph = sorted(edges[i:j + 1])
-            graph_counts[tuple(subgraph)] += 1
+def max_power_divisor(n, k):
+    max_i = float('inf')  # Initialize max_i to positive infinity
+    
+    # Factorize k and find the maximum power for each prime factor
+    for p in range(2, int(math.sqrt(k)) + 1):
+        if k % p == 0:
+            power = 0
+            while k % p == 0:
+                k //= p
+                power += 1
+            count = prime_factors_count(n, p)
+            max_i = min(max_i, count // power)
+    
+    if k > 1:
+        count = prime_factors_count(n, k)
+        max_i = min(max_i, count)
+    
+    return max_i
 
-    for count in graph_counts.values():
-        # Calculate the number of pairs for each unique graph representation
-        equal_graph_pairs += (count * (count - 1)) // 2
+# Read the number of test cases
+t = int(input())
 
-    return equal_graph_pairs
-
-# Main function
-def main():
-    T = int(input())
-    for _ in range(T):
-        n = int(input())
-        edges = [tuple(map(int, input().split())) for _ in range(n)]
-        result = count_equal_graphs(n, edges)
-        print(result)
-
-if __name__ == "__main__":
-    main()
+# Process each test case
+for _ in range(t):  
+    n, k = map(int, input().split())
+    result = max_power_divisor(n, k)
+    print(result)

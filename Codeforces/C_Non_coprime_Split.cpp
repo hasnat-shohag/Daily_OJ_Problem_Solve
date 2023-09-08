@@ -30,27 +30,51 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    int n,ans=0,c=0,mx=0; cin>>n;
-    priority_queue<int,vector<int>,greater<int>>p;
-    vector<pair<int,int>>v;
-    for(int i=0; i<n; i++){
-        int a,b; cin>>a>>b;
-        v.pb({a,b});
-    }
-    sort(v.begin(),v.end(),[](auto &l, auto &r){
-        if(l.ff==r.ff)return l.ss>r.ss;
-        else{
-            return l.ff<r.ff;
-        } 
-    });
-    for(int i=0; i<n; i++){
-        
-        while(!p.empty() && p.top()<=c)mx=max(mx,p.top()),p.pop();
-        c=p.size();
-        if(v[i].ff>mx && c<v[i].first)p.push(v[i].first),c++,ans+=v[i].ss;
-    }
-    cout<<ans<<"\n";
+    int a,b;cin>>a>>b;
+    if(a<b) swap(a,b);
 
+    // prime
+    
+    if(a != b){
+        int tar = -1;
+        for(int i = b; i<=a; i++){
+            if(!(i&1) and i != 2){
+                cout << 2 <<" "<<i-2<<endl;
+                return;
+            }
+        }
+    }
+    bool flag = false;
+    for(int i = 2; i*i<= a; i++){
+        if(a % i == 0){
+            flag = true;
+        }
+    }
+    if(!flag){
+        // cout << a << endl;
+        cout << -1 << endl;
+        return;
+    }
+        int x = a-1; 
+        int y = 1;
+        
+        while(true){
+            // cout <<"OK";
+            
+            if(y > b){
+                break;
+            }
+            int temp = gcd(x,y);
+            if(temp > 1){
+                cout << x << " "<<y<<endl;
+                return;
+            }
+
+            x--;
+            y++;
+        }
+   
+    cout << -1 << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

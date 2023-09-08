@@ -1,7 +1,3 @@
-/*
-    -> Optimized by Rank
-    -> Path Compression
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,54 +27,52 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-vector<int>par;
-vector<int>Rank;
-
-int find(int x){
-    if(par[x] < 0){
-        return x;
-    }
-    return par[x] = find(par[x]);
-}
-
-void _union(int x, int y){
-    if(Rank[x] > Rank[y]){
-        par[x] += par[y];
-        par[y] = x;
-        Rank[x] += Rank[y];
-    }else{
-        Rank[y] += Rank[x];
-        par[y] += par[x];
-        par[x] = y;
-    }
-}
 
 void sol(int tc)
 {
-    int n,m;cin>>n>>m;
-    par.resize(n+1);
-    Rank.resize(n+1);
+    int n;cin>>n;
+    map<int,int>mp;
 
-    for(int i = 0; i<=n; i++) par[i] = -1, Rank[i] = 1;
-
-    for(int i = 0; i<m; i++){
-        int a,b;cin>>a>>b;
-
-        int aa = find(a);
-        int bb = find(b);
-        if(aa != bb){
-            _union(aa, bb);
-        }
+    for(int i = 0; i<n; i++){
+        int d,s;cin>>d>>s;
+        // if(s < d){
+        //     mp[d] = -1000000;
+        // }else{
+            if(mp[d] != 0){
+                mp[d] = min(mp[d], s);
+            }else{
+                mp[d] = s;
+            }
+        // }
     }
 
-    int res = 1;
-    for(int i = 1; i<=n; i++){
-        if(par[i] < 0){
-            res *= abs(par[i]);
-            res %= mod;
+    int mn = LLONG_MAX;
+    auto it = mp.begin();
+    int res = it->ff - 1;
+
+    // for(auto [x,y]:mp){
+    //     cout << x<<" "<<y << endl;
+    // }
+
+    for(auto [x,y]:mp){
+        // koto dur jaoa jay highest
+        
+        int temp = y;
+        if(temp < 0){
+            if(mn >= x){
+                mn = x-1;
+            }
+            break;
         }
+        temp = (temp-1) / 2;
+        int cal = temp + x;
+        mn = min(mn, cal);
     }
-    cout << res << endl;
+    if(mn == LLONG_MAX){
+        cout << res << endl;
+        return;
+    }
+    cout << mn << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -87,7 +81,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);

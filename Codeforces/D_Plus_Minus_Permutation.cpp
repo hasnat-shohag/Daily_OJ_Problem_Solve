@@ -1,7 +1,3 @@
-/*
-    -> Optimized by Rank
-    -> Path Compression
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,53 +27,35 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-vector<int>par;
-vector<int>Rank;
-
-int find(int x){
-    if(par[x] < 0){
-        return x;
-    }
-    return par[x] = find(par[x]);
-}
-
-void _union(int x, int y){
-    if(Rank[x] > Rank[y]){
-        par[x] += par[y];
-        par[y] = x;
-        Rank[x] += Rank[y];
-    }else{
-        Rank[y] += Rank[x];
-        par[y] += par[x];
-        par[x] = y;
-    }
-}
 
 void sol(int tc)
 {
-    int n,m;cin>>n>>m;
-    par.resize(n+1);
-    Rank.resize(n+1);
+    int n,x,y;cin>>n>>x>>y;
+    int _ = lcm(x,y);
+    // cout << _ << endl;
+    int a = n / x;
+    int b = n/y;
+    int c = n / _;
+    
+    int mn = min({c , a, b});
+    // cout << a <<" "<<b <<" " <<c<< endl;
+    a -= mn;
+    b -= mn;
 
-    for(int i = 0; i<=n; i++) par[i] = -1, Rank[i] = 1;
+    int res = 0;
+    int temp = 0;
+    if(a > 0){
+        temp = (n*(n+1))/2;
 
-    for(int i = 0; i<m; i++){
-        int a,b;cin>>a>>b;
-
-        int aa = find(a);
-        int bb = find(b);
-        if(aa != bb){
-            _union(aa, bb);
-        }
+        int baad = n - a;
+        temp -= (baad*(baad+1))/2;
+    }
+    res += temp;
+    if(b > 0){
+        temp = (b*(b+1))/2;
+        res -= temp;
     }
 
-    int res = 1;
-    for(int i = 1; i<=n; i++){
-        if(par[i] < 0){
-            res *= abs(par[i]);
-            res %= mod;
-        }
-    }
     cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
@@ -87,7 +65,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);
