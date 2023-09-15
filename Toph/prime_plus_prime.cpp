@@ -27,58 +27,54 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
-
-vector<int>low(1e6); 
-void sieve(){
-    int n = 1e6;
-    for(int i = 2; i<=n; i++){
-        low[i] = i;
+vector<int> vec;
+int n = 19000009;
+vector<bool> prime(n + 1, 1);
+void SieveOfEratosthenes()
+{
+    prime[0]=prime[1] = 0;
+    for(int i = 4; i<n; i+=2){
+        prime[i] = 0;
     }
- 
-    for(int i = 2; i*i <= n; i++){
-        if(low[i] == i){
-            for(int j =  i*i; j<= n; j += i){
-                if(low[j] == j){ 
-                    low[j] = i;
-                }
-            }
+    for (int p = 3; p * p <= n; p += 2)
+    {
+        if (prime[p])
+        {
+            for (int i = p * p; i <= n; i += p)
+                prime[i] = 0;
+        }
+    }
+    vec.pb(2);
+    for (int i = 3; i < n; i+=2)
+    {
+        if (prime[i])
+        {
+            vec.push_back(i);
         }
     }
 }
- 
-vector<int>prime_fact(int x){
-    vector<int>res;
-    while (x > 1)
-    {
-        res.push_back(low[x]);
-        x /= low[x];
-    }
-    return res;
-}
-void sol(int tc){
-    int a,b;cin>>a>>b;
-    vector<int>va = prime_fact(a);
-    vector<int>vb = prime_fact(b);
 
-    bool flag1 = false, flag2 = false;
-
-    if(va.size() == 1 || (va.size() == 2 and va[0] != va[1])){
-        flag1 = true;
+void sol(int tc)
+{
+    int x;cin>>x;
+    for(int i = 0; i<vec.size(); i++){
+        if(vec[i] > 100000){
+            break;
+        }
+        if(prime[x+vec[i]]) {
+            cout <<"Yes"<<endl;
+            return;
+        }
     }
-    if(vb.size() == 1 || (vb.size() == 2 and vb[0] != vb[1])){
-        flag2 = true;
-    }
-    if(flag1 and flag2){
-        cout <<"Yes"<<endl;
-    }else cout <<"No" << endl;
+    cout << "No"<<endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;
-    int tt;
     //TxtIO;
-    sieve();
+    SieveOfEratosthenes();
+    int tt;
     tt = 1;
     // cin >> tt;
     for(int i = 1; i<= tt; i++)

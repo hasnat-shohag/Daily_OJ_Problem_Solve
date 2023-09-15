@@ -28,59 +28,55 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
-vector<int>low(1e6); 
-void sieve(){
-    int n = 1e6;
-    for(int i = 2; i<=n; i++){
-        low[i] = i;
+void sol(int tc)
+{
+    int n;cin>>n;
+    string s;cin>>s;
+    if(s == "1" || s == "0"){
+        cout << "11"<<endl;
+        return;
     }
- 
-    for(int i = 2; i*i <= n; i++){
-        if(low[i] == i){
-            for(int j =  i*i; j<= n; j += i){
-                if(low[j] == j){ 
-                    low[j] = i;
-                }
+
+    int mn = 0, op = 0;
+    bool flag = false;
+    for(int i = 0; i<n/2; i++){
+        if(s[i] != s[n-i-1]) mn++, flag = true;
+        else op++;
+    }
+    // cout << mn <<" "<<op<<endl;
+    string res;
+    for(int i = 0; i<=n; i++) res.pb('0');
+
+    if(!flag) res[0] = '1';
+
+    if(n & 1){
+        int sum = mn + (op*2) + 1;
+        for(int i = mn; i<= sum; i++){
+            res[i] = '1';
+        }   
+    }
+    else{
+        // res[mn] = '1';
+        int cnt  = 0;
+        for(int i = mn; i<=n; i+=2){
+            res[i] = '1';
+            cnt++;
+            if(cnt == op+1){
+                break;
             }
         }
     }
-}
- 
-vector<int>prime_fact(int x){
-    vector<int>res;
-    while (x > 1)
-    {
-        res.push_back(low[x]);
-        x /= low[x];
-    }
-    return res;
-}
-void sol(int tc){
-    int a,b;cin>>a>>b;
-    vector<int>va = prime_fact(a);
-    vector<int>vb = prime_fact(b);
 
-    bool flag1 = false, flag2 = false;
-
-    if(va.size() == 1 || (va.size() == 2 and va[0] != va[1])){
-        flag1 = true;
-    }
-    if(vb.size() == 1 || (vb.size() == 2 and vb[0] != vb[1])){
-        flag2 = true;
-    }
-    if(flag1 and flag2){
-        cout <<"Yes"<<endl;
-    }else cout <<"No" << endl;
+    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;
-    int tt;
     //TxtIO;
-    sieve();
+    int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);
