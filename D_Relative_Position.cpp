@@ -30,11 +30,39 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    string s;cin>>s;
+    int n,m;cin>>n>>m;
 
-    int mx = 1;
+    map<int, pair<int,int>>mp;
 
-    
+    vector<bool>ans(n+1);
+    vector<bool>dicide(n+1);
+    dicide[1] = true;
+
+    int a,b,x,y;
+    for(int k  = 0; k<m; k++){
+        cin>>a>>b>>x>>y;
+        if(a == 1){
+            mp[b] = {x, y};
+            dicide[b] = true;
+            // ans[b] = true;
+        }
+        else if(!dicide[a]){
+            if(dicide[b]){
+                mp[a] = {mp[b].ff-x, mp[b].ss-y};
+                // cout <<mp[a].ff<<" "<<mp[a].ss<<endl;
+                // cout <<"ok"<<" "<<a<<" "<<b<<endl;
+                dicide[a] = true;
+            }
+            else ans[a] = true, ans[b] = true;
+        }else{
+            dicide[b] = true;
+            mp[b] = {mp[a].ff+x, mp[a].ss+y};
+        }
+    }
+    for(int i = 1; i<=n; i++){
+        if(ans[i]) cout << "undecidable"<<endl;
+        else cout << mp[i].ff<<" "<<mp[i].ss<<endl;
+    }
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

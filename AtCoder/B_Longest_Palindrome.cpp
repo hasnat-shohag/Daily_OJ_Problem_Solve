@@ -31,10 +31,24 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 void sol(int tc)
 {
     string s;cin>>s;
-
+    int n= s.size();
     int mx = 1;
 
-    
+    for(int i = 0; i<n; i++){
+        for(int j = 1; j<n-(i-1); j++){
+            string str = s.substr(i, j);
+            // cout << str << endl;
+            bool flag = true;
+            for(int k = 0; k<(int)str.size()/2; k++){
+                if(str[k] != str[(int)str.size()-k-1]){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag) mx = max(mx, (int)str.size());
+        }
+    }
+    cout << mx << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

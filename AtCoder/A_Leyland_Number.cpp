@@ -30,11 +30,9 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    string s;cin>>s;
-
-    int mx = 1;
-
-    
+    int a,b;cin>>a>>b; 
+    int res = pow(a,b) + pow(b,a); 
+    cout << res <<endl; 
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -43,7 +41,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    //cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);
