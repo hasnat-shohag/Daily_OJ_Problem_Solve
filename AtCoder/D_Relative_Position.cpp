@@ -28,40 +28,41 @@ int pow(int a, int b){ int res = 1; while (b){ if(b&1){ res *= a; b--;} a *= a; 
 template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for (auto &it : v) cin >> it; return istream;}
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
+vector<vector<array <int, 3>>>adj;
+vector<bool>vis;
+vector<pair<int,int>>pos;
+
+void dfs(int x){
+    vis[x] = true;
+
+    for(auto &it: adj[x]){
+        if(!vis[it[0]]){
+            pos[it[0]] = {pos[x].ff + it[1], pos[x].ss + it[2]};
+            dfs(it[0]);
+        }
+    }
+}
+
 void sol(int tc)
 {
     int n,m;cin>>n>>m;
+    adj.resize(n+1);
+    vis.resize(n+1);
+    pos.resize(n+1);
 
-    map<int, pair<int,int>>mp;
-
-    vector<bool>ans(n+1);
-    vector<bool>dicide(n+1);
-    dicide[1] = true;
-
-    int a,b,x,y;
-    for(int k  = 0; k<m; k++){
-        cin>>a>>b>>x>>y;
-        if(a == 1){
-            mp[b] = {x, y};
-            dicide[b] = true;
-            // ans[b] = true;
-        }
-        else if(!dicide[a]){
-            if(dicide[b]){
-                mp[a] = {mp[b].ff-x, mp[b].ss-y};
-                // cout <<mp[a].ff<<" "<<mp[a].ss<<endl;
-                // cout <<"ok"<<" "<<a<<" "<<b<<endl;
-                dicide[a] = true;
-            }
-            else ans[a] = true, ans[b] = true;
-        }else{
-            dicide[b] = true;
-            mp[b] = {mp[a].ff+x, mp[a].ss+y};
-        }
+    int u,v,x,y;
+    for(int i = 0; i<m; i++){
+        cin>>u>>v>>x>>y;
+        adj[u].pb({v, x, y});
+        adj[v].pb({u, -x, -y});
     }
-    for(int i = 1; i<=n; i++){
-        if(ans[i]) cout << "undecidable"<<endl;
-        else cout << mp[i].ff<<" "<<mp[i].ss<<endl;
+   
+    pos[1] = {0,0};
+
+    dfs(1);
+    for(int i = 1; i<= n; i++){
+        if(!vis[i]) cout << "undecidable"<<endl;
+        else cout << pos[i].ff<<" "<<pos[i].ss<<endl;
     }
 }
 //Before Submit handle the case for 0 and 1
@@ -71,7 +72,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    // cin >> tt;   
     for(int i = 1; i<= tt; i++)
     {
         sol(i);
