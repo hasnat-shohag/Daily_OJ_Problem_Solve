@@ -30,16 +30,29 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    int a,b;cin>>a>>b;
-
-    int x = 0;
-    for(int i = 0; i<30; i++){
-        int p = (i^a);
-        int q = (i ^ b);
-
-        cout <<i <<" "<< p<<" "<<q<<" "<<abs(p-q)<<endl;
+    int n,k;cin>>n>>k;
+    vector<pair<int,int>>v(n);
+    f0(i,n){
+        cin>>v[i].first;
+        v[i].ss = i;
     }
-    
+
+    sort(all(v));
+    // return;
+    vector<int> ans(k+1);
+
+    int mx = v[n-1].ss;
+    int mn = v[n-1].ss;
+
+    for(int i = n-1; i>=0; i--){
+        mx = max(mx,v[i].ss);
+        mn = min(mn, v[i].ss);
+
+        ans[v[i].ff] = max(ans[v[i].ff], 2*(mx-mn+1));
+    }
+    for(int i = 1; i<= k; i++){
+        cout << ans[i]<<" ";
+    }cout << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -48,7 +61,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);

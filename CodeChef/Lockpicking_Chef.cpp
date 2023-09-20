@@ -30,16 +30,43 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    int a,b;cin>>a>>b;
+    int n,k;cin>>n>>k;
+    string s;cin>>s;
+    string str; cin>>str;
+    // sort(all(s));
+    // sort(all(str));
+    int res = LLONG_MAX;
 
-    int x = 0;
-    for(int i = 0; i<30; i++){
-        int p = (i^a);
-        int q = (i ^ b);
+    for(int i = 0; i<n-k+1; i++){
+        string temp = s.substr(i, k);
+        // cout << temp1 << endl;
+        int sum = 0;
 
-        cout <<i <<" "<< p<<" "<<q<<" "<<abs(p-q)<<endl;
+        for(int j = 0; j<k; j++){
+            int a = temp[j] - '0';
+            int b = str[j] - '0';
+
+            int mn = LLONG_MAX;
+            if(a == b){
+                continue;
+            }
+            if(a > b){
+                mn = min(mn, abs(a-b));
+                int val = 9 - a + 1;
+                val += b;
+                mn = min(mn, val);
+                sum += mn;
+            }else{
+                mn = min(mn, abs(a-b));
+                int val = a;
+                val += (9 - b + 1);
+                mn = min(mn, val);
+                sum += mn;
+            }
+        }
+        res = min(res, sum);
     }
-    
+    cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()
@@ -48,7 +75,7 @@ int32_t main()
     //TxtIO;
     int tt;
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     for(int i = 1; i<= tt; i++)
     {
         sol(i);
