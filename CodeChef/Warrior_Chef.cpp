@@ -30,28 +30,37 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    int a,b;cin>>a>>b;
-    if(a == b){
-        cout << 0 << endl;
-        return;
-    }
-    int res = 0;
-    int mn = LLONG_MAX;
-    
-    int left = 1;
-    for(int i = 0; i<31; i++){
+    int n,h;cin>>n>>h;
+    vi v(n);cin>>v;
 
-        int p = (a ^ left);
-        int q = (b ^ left);
-        
-        int temp  = abs(p-q);
-        if(temp < mn){
-            mn = temp;
-            res = left;
+    int res = LLONG_MAX;
+
+    int l = 0, r = 1e9;
+
+    while(l<=r){
+        int mid = (l+r)/2;
+        int hh = h;
+        // cout << mid<<endl;
+        for(int i = 0; i<n; i++){
+            if(v[i] <= mid){
+                continue;
+            }
+
+            if(h>v[i]) h -= v[i];
+            else {
+                h = 0;
+                break;
+            }
         }
-
-        left <<= 1;
+        if(h>0){
+            res = min(mid, res);
+            r = mid-1;
+        }else{
+            l = mid+1;
+        }
+        h = hh;
     }
+
     cout << res << endl;
 }
 //Before Submit handle the case for 0 and 1
