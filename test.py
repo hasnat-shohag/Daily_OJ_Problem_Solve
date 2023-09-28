@@ -1,36 +1,29 @@
-import math
+from collections import Counter
 
-def prime_factors_count(n, p):
-    count = 0
-    while n >= p:
-        count += n // p
-        n //= p
-    return count
+# Define the set of colors
+colors = {"blue", "green", "yellow", "red", "purple", "orange", "pink", "grey", "cyan", "brown", "ash", "silver", "gold", "white", "black"}
 
-def max_power_divisor(n, k):
-    max_i = float('inf')  # Initialize max_i to positive infinity
-    
-    # Factorize k and find the maximum power for each prime factor
-    for p in range(2, int(math.sqrt(k)) + 1):
-        if k % p == 0:
-            power = 0
-            while k % p == 0:
-                k //= p
-                power += 1
-            count = prime_factors_count(n, p)
-            max_i = min(max_i, count // power)
-    
-    if k > 1:
-        count = prime_factors_count(n, k)
-        max_i = min(max_i, count)
-    
-    return max_i
+# Function to check if a color can be formed from characters in the string
+def can_form_color(color, char_count):
+    for char in color:
+        if char in char_count and char_count[char] > 0:
+            char_count[char] -= 1
+        else:
+            return False
+    return True
 
-# Read the number of test cases
+# Function to find the maximum possible size of the desired subset
+def find_max_subset(S):
+    char_count = Counter(S)
+    max_size = 0
+    for color in colors:
+        if can_form_color(color, char_count.copy()):
+            max_size += 1
+    return max_size
+
+# Input the number of test cases
 t = int(input())
-
-# Process each test case
-for _ in range(t):  
-    n, k = map(int, input().split())
-    result = max_power_divisor(n, k)
-    print(result)
+for _ in range(t):
+    S = input()
+    max_subset_size = find_max_subset(S)
+    print(max_subset_size)
