@@ -30,48 +30,69 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    string s;cin>>s;
+    string s;
+    cin >> s;
 
-    vector<string>c = {"blue", "green", "yellow", "red", "purple", "orange", "pink", "grey", "cyan", "brown", "ash", "silver", "gold", "white", "black"};
-    map<char, int>mp;
-    for(int i = 0; i<s.size(); i++){
-        mp[s[i]]++;
+    vector<string> c = {"blue", "green", "yellow", "red", "purple", "orange", "pink", "grey", "cyan", "brown", "ash", "silver", "gold", "white", "black"};
+    map<char, int> mp1;
+    for (int i = 0; i < s.size(); i++)
+    {
+        mp1[s[i]]++;
     }
-    // sort(all(c));
-    // cout << c << endl;
-    // return;
-    int res = 0;
 
-    for(int i = 0; i<c.size(); i++){
-        bool flag = true;
-        int cnt = 0;
-        for(int j = 0; j<c[i].size(); j++){
-            if(mp[c[i][j]]>0){
-                cnt++;
+    int mx = 0;
+
+    map<char,int>mp;
+    for (int i = 1; i < (1 << 15); i++)
+    {
+        // reassign the frequency for every combination
+        int res = 0;
+        for(auto it: mp1){
+            mp[it.ff] = it.ss;
+        }
+        
+        // traverse all element of C for the corresponding values of i 
+        for (int j = 0; j < 15; j++)
+        {
+            if (i & (1 << j))   // (1<<j) leftshifting
+            { 
+                int cnt = 0;
+                string str;
+                for (int k = 0; k < c[j].size(); k++)
+                {
+                    if (mp[c[j][k]] > 0)
+                    {   
+                        mp[c[j][k]]--;
+                        str.push_back(c[j][k]);
+                        cnt++;
+                    }
+                }
+                if (cnt == c[j].size())
+                {
+                    res++;
+                }else{
+                    for(int k = 0; k<str.size(); k++){
+                        mp[str[k]]++;
+                    }
+                }
             }
         }
-        if(cnt == c[i].size()){
-            res++;
-            for(int j = 0; j<c[i].size(); j++){
-                mp[c[i][j]]--;
-            }
-        }
+        mx = max(mx, res);
+        mp.clear();
     }
-    // for(auto it:mp){
-    //     if(it.ss>0)
-    //     cout << it.ff <<" "<<it.ss<<endl;
-    // }
-    cout << res <<endl;
+
+    
+    cout << mx << endl;
 }
-//Before Submit handle the case for 0 and 1
+// Before Submit handle the case for 0 and 1
 int32_t main()
 {
     FastIO;
-    //TxtIO;
+    // TxtIO;
     int tt;
     tt = 1;
     cin >> tt;
-    for(int i = 1; i<= tt; i++)
+    for (int i = 1; i <= tt; i++)
     {
         sol(i);
     }
