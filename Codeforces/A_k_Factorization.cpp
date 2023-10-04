@@ -18,6 +18,16 @@ using namespace std;
 #define int long long
 #define INF 1000000000
 #define mod 1000000007
+
+//________________________Algorithm__________________________________
+// customized sieve for prime factorization upto 1e6
+vector<int>low(1e6); 
+void sieve(){ int n = 1e6; for(int i = 2; i<=n; i++){ low[i] = i;} for(int i = 2; i*i <= n; i++){ if(low[i] == i){for(int j =  i*i; j<= n; j += i){if(low[j] == j){ low[j] = i; }}}}}
+// Sieve upto 1e8
+vector<int> vec; int N = 100000009;
+vector<bool> prime(N + 1, 1);
+void SieveOfEratosthenes(){ prime[0]=prime[1] = 0; for(int i = 4; i<N; i+=2){ prime[i] = 0;} for (int p = 3; p * p <= N; p += 2){ if (prime[p]) { for (int i = p * p; i <= N; i += p) prime[i] = 0; }} vec.pb(2); for (int i = 3; i < N; i+=2){ if (prime[i]){ vec.push_back(i);}}}
+vector<int>prime_fact(int x){ vector<int>res; while (x > 1) { res.push_back(low[x]); x /= low[x]; } return res; }
 //_________________Function_______________
 int nPr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1;} return result; }
 int nCr(int n, int r){ if (r > n / 2) r = n - r; int result = 1; for (int i = 1; i <= r; ++i) { result *= n - i + 1; result /= i; } return result; }
@@ -30,30 +40,27 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    int n;cin>>n;
-    int res = 1;
-    f0(i,n){
-        int x;cin>>x;
-        res *= x;
-        res %= mod;
+    int n,k;cin>>n>>k;
+    sieve();
+
+    vector<int>ans;
+
+    while(n>1){
+        ans.pb(low[n]);
+        n /= low[n];
     }
 
-    n = res;
-    res = 1;
-
-    for(int i = 1; i*i <= n; i++){
-        if(n % i == 0){
-            res *= i;
-            res %= mod;
-
-            if(i * i != n){
-                int temp = (n/i);
-                res *= temp;
-                res %= mod;
-            }
-        }
+    if(ans.size()<k) {
+        cout << -1 << endl;
+        return;
     }
-    cout << res << endl;
+
+    while(ans.size() != k){
+        ans[ans.size() - 2] *= ans.back();
+        ans.pop_back();
+    }
+
+    cout << ans << endl;
 }
 //Before Submit handle the case for 0 and 1
 int32_t main()

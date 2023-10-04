@@ -1,29 +1,26 @@
-from collections import Counter
+MOD = 10**9 + 7
 
-# Define the set of colors
-colors = {"blue", "green", "yellow", "red", "purple", "orange", "pink", "grey", "cyan", "brown", "ash", "silver", "gold", "white", "black"}
+def countRobots(M, N):
+    dp = [[0] * (N + 1) for _ in range(M + 1)]
+    
+    # Initialize dp[0][j] to 1 for all j
+    for j in range(1, N + 1):
+        dp[0][j] = 1
 
-# Function to check if a color can be formed from characters in the string
-def can_form_color(color, char_count):
-    for char in color:
-        if char in char_count and char_count[char] > 0:
-            char_count[char] -= 1
-        else:
-            return False
-    return True
+    for i in range(1, M + 1):
+        for j in range(1, N + 1):
+            for k in range(1, N + 1):
+                if abs(j - k) <= 2:
+                    dp[i][j] = (dp[i][j] + dp[i - 1][k]) % MOD
 
-# Function to find the maximum possible size of the desired subset
-def find_max_subset(S):
-    char_count = Counter(S)
-    max_size = 0
-    for color in colors:
-        if can_form_color(color, char_count.copy()):
-            max_size += 1
-    return max_size
+    # Sum up dp[M][j] for all j to get the total count
+    total_count = sum(dp[M]) % MOD
 
-# Input the number of test cases
-t = int(input())
-for _ in range(t):
-    S = input()
-    max_subset_size = find_max_subset(S)
-    print(max_subset_size)
+    return total_count
+
+# Read input and process test cases
+T = int(input())
+for _ in range(T):
+    M, N = map(int, input().split())
+    result = countRobots(M, N)
+    print(result)
