@@ -44,67 +44,25 @@ template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for 
 
 void sol(int tc)
 {
-    int n;cin>>n;
-    string s[n];
+  int n;cin>>n;
+  vi v(n);cin>>v;
 
-    for(int i = 0; i<n; i++){
-        string str;cin>>str;
-        s[i]= str;
+  int sum  = 0;
+  f0(i,n){
+    sum += v[i];
+  }
+  
+  int carry = 0;
+  int tobe = sum / n;
+  // cout <<sum<<" "<<tobe<<endl;
+  for(int i = 0; i < n; i++){
+    carry += (v[i] - tobe);
+    if(carry<0){
+      cout <<"NO"<<endl;
+      return;
     }
-
-
-    string s2[n];
-    int col = 0;
-    for(int i = n-1; i>=0; i--){
-        for(int j = 0; j<n; j++){
-            // s[i][j]
-            s2[j][col] = s[i][j];
-        }
-        col++;
-    }
-
-    // for(int i = 0; i<n; i++){
-    //     for(int j = 0; j<n; j++){
-    //         cout << s2[i][j];
-    //     }
-    //     cout << endl;
-    // }
-
-    int res = 0;
-    int cnt = 0;
-    for(int i = n-1; i>=1; i--){
-        for(int j = 0; j<n-cnt; j++){
-            // cout << s[i][j]<<" ";
-            if(s[i][j] != s2[j][i]){
-                int p = s[i][j] - 'a';
-                int q = s[j][i] - 'a';
-                res += abs( p - q);
-                // cout << s[i][j] <<" "<<s[j][i]<<endl;
-                if(p>q){
-                    s2[i][j] = s[i][j];
-                }else{
-                    s[i][j] = s2[i][j];
-                }
-            }
-        }
-        cnt++;
-    }
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<n; j++){
-            if(s[i][j] != s2[i][j]){
-                int p = s[i][j] - 'a';
-                int q = s2[i][j] - 'a';
-                res += abs( p - q);
-                // cout << s[i][j] <<" "<<s[j][i]<<endl;
-            }
-        }
-    }
-
-    
-
-    // char three_char = '3';
-    // int three_int = three_char - '0';
-    cout << res << endl;
+  }
+  cout << "YES"<<endl;
 }
 //? Before Submit handle the case for 0 and 1
 int32_t main()

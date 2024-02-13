@@ -43,48 +43,47 @@ template<typename T> istream& operator >> (istream &istream, vector<T> &v) {for 
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &v) {for (auto e : v){os << e << " ";}return os;}
 
 void sol(int tc)
-{
-  vector<int>v(3); cin>>v;
+{ 
+  int n;cin >> n;
+  vi v(n); cin>>v;
 
-  if(v[0] == v[1] and v[1] == v[2]){
-    cout << 1<<" "<<1<< " "<<1<<endl;
+  if(count(all(v), v[0]) == n){
+    cout << 0 << endl;
     return;
   }
-  set<pair<int,int> >st;
-  for(int i = 1; i<=3; i++){
-    st.insert({v[i-1], i});
-  }
-  int total = -1; 
-  for(int i = 0; i<3; i++) total += v[i];
-  while (total--)
-  {
-    auto it1 = st.begin();
-    auto it2 = ++st.begin();
-    auto it3 = st.begin();
-    advance(it3, 2);
-    
-    pair<int,int>p;
-    set<pair<int,int>>st2;
-    p.ff = it3->ff - 1;
-    p.ss = it3->ss;
-    st2.insert(p);
-    p.ff = it2->ff - 1;
-    p.ss = it2->ss;
-    st2.insert(p);
-    p.ff = it1->ff + 1;
-    p.ss = it1->ss;
-    st2.insert(p);
 
-    st = st2;
+  int sum = 0;
+  int same = 1;
+  for(int i = 1; i<n; i++){
+    if(v[i] == v[0]) same++;else{break;}
   }
-  vector<bool>b(5);
-  for(auto it: st){
-    if(it.ff > 0) b[it.ss] = true;
+  
+  sum += same;
+
+  same = 0;
+  for(int i = n-1; i>=0; i--){
+    if(v[i] == v[0]) same++;else{break;}
   }
-  for(int i = 1; i<= 3; i++){
-    if(b[i]) cout << 1<<" ";else cout <<0 <<" ";
+
+  sum += same;
+
+  int ans = n - sum;
+  // cout << ans << endl;
+  sum = 0;
+  same = 0;
+  for(int i = 0; i<n; i++){
+    if(v[i] == v[n-1]) same++;else{break;}
   }
-  cout << endl;
+  sum += same;
+  same = 1;
+  for(int i = n-2; i>=0; i--){
+    if(v[i] == v[n-1]) same++;else{break;}
+  }
+
+  sum += same;
+  ans = min(ans, n - sum);
+
+  cout << ans <<endl;
 }
 //? Before Submit handle the case for 0 and 1
 int32_t main()
